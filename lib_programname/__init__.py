@@ -1,6 +1,6 @@
 # stdlib
 import pathlib
-from .lib_programname import *
+from main import *
 
 
 def get_version() -> str:
