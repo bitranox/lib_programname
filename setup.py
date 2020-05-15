@@ -9,7 +9,8 @@ try:
 except ImportError:
     from distutils.core import setup
 
-package_name = 'lib_programname'                                                    # type: str
+# package_name = 'lib_programname'                                                  # type: str
+package_name = pathlib.Path(__file__).parts[-2]                                     # type: str
 required = list()                                                                   # type: List[str]
 
 required_for_tests = list()                                                         # type: List[str]
