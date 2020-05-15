@@ -1,0 +1,2 @@
+- special thanks to "uncle bob" Robert C. Martin, especially for his books on "clean code" and "clean architecture"
+- thanks to Dough Hellman for his `article <https://doughellmann.com/blog/2012/04/30/determining-the-name-of-a-process-from-python/>`_ about that issue
