@@ -1,6 +1,7 @@
-"""Setuptools entry point."""
-
-# see : https://docs.python.org/3.8/distutils/setupscript.html
+"""
+Setuptools entry point.
+see : https://docs.python.org/3.8/distutils/setupscript.html
+"""
 
 import codecs
 import os
@@ -12,12 +13,11 @@ try:
 except ImportError:
     from distutils.core import setup
 
-# package_name = 'lib_programname'                                                  # type: str
-package_name = pathlib.Path(__file__).parts[-2]                                     # type: str
-required = list()                                                                   # type: List[str]
+package_name = 'lib_programname'        # type: str
+required = list()                       # type: List[str]
 
-required_for_tests = list()                                                         # type: List[str]
-entry_points = dict()                                                               # type: Dict[str, List[str]]
+required_for_tests = list()             # type: List[str]
+entry_points = dict()                   # type: Dict[str, List[str]]
 
 
 def get_version(dist_directory: str) -> str:
