@@ -1,6 +1,6 @@
 language: python
 group: travis_latest
-dist: xenial
+dist: bionic
 sudo: true
 
 env:
@@ -15,7 +15,7 @@ env:
         # cd /<repository>
         # travis encrypt -r bitranox/lib_parameter pypi_password=*****
         # copy and paste the encrypted password here
-        - secure: "BnNGwDiHxTzv8pkkUu6f+gn23Ls4pi9THHTBIMC5vHIbe5UiVtIyr+gQBwByyNZ17RFqodO5DWmHzaYkojMbSkWm6NsiL8BJt2xvBXoi12PUjdEBj2iiAcgflRmOR/7ovbi8kZl+tCigcj68EgpXXSBeAdUyGLOJskIT9HuNWFf1NgDANlgoK2xGV1pB+y65L1+aNYbjuaMUkDFHBnXbMm7D054i9G3ElliXX+2INCEZU3Gd1U+jkVUZ9QyLlsmeCDVJ0rFU2XhygIrD++y3ahvRaG3hBTQTVmmW3At7ldCGcnkGC9xMPvSBJc0Gzqs+J8gxjuQYOagTp0ZTR/L47Y3tmzO718OXH9zRfUCB51M9czSi7tQvNDXmLE5JBXCpvFyxhAi+b+tda5vi9h5HxGjRnkbOyAEz5YIKtMj+Tw054Cv3GiVfrc0pzEkYDapAVxFbcpX4t1DAJ7u/ST84p0F1o+6dWy03+ndMa17Kn7EOe9kwLuktb+QB9aHNc9zT5Evf6LmziRzE0Y1R3xdJLkM3V/6M/Ad7QdPdfuiyMwS/w5FAx3YpRb4kbJDhVBsH9m/X+RkUcIwx3tYsqeGMOyZTsuHmfAmBjP685lL5PxqCbBBhJvYj6JJf4ZVcBJqgzALb2cwyAC+atQwa6QWFgHKkVcY+ciI1OTYMKLBk5u4="
+        # - secure: "BnNGwDiHxTzv8pk.secure: .secure: .secure: ."
 
 addons:
     apt:

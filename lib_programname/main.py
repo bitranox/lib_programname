@@ -11,6 +11,13 @@ import sys
 empty_path = pathlib.Path()
 
 
+def xxtest():
+    """
+    >>> xxtest()
+    """
+    raise RuntimeError(str(sys.argv))
+
+
 def get_programname_fullpath() -> pathlib.Path:
     """ getting the full path of the program from which a Python module is running  """
 
