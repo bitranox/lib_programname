@@ -52,11 +52,6 @@ matrix:
     - os: linux
       language: python
       python: '3.6'
-      # we can do that also with env - but we dont want to show it on the travis build overview
-      before_install:
-          - export mypy_static_typecheck="True"
-          - export build_docs="True"
-          - export deploy_on_pypi="True"
 
     - os: linux
       language: python
@@ -65,6 +60,10 @@ matrix:
     - os: linux
       language: python
       python: '3.8'
+      before_install:
+          - export mypy_static_typecheck="True"
+          - export build_docs="True"
+          - export deploy_on_pypi="True"
 
     - os: linux
       language: python
@@ -204,7 +203,7 @@ matrix:
       language: sh
       name: "osX Python 3.8"
       python: "3.8"
-      osx_image: xcode11
+      osx_image: xcode11.4
       env:
         # on osx pip and python points to python 2.7 - therefore we have to use pip3 and python3 here
         - python_command="python3"
