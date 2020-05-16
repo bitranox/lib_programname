@@ -27,7 +27,7 @@ import rst_include              # type: ignore
 
 
 # CONSTANTS & PROJECT SPECIFIC FUNCTIONS
-codeclimate_link_hash = "4a90a2679cbe3c2989d4"  # for lib_parameter
+codeclimate_link_hash = "a177641a83f33aa78c9e"  # for lib_programname
 
 
 def project_specific(repository_slug: str, repository: str, repository_dashed: str) -> None:

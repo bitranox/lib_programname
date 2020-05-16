@@ -1,4 +1,7 @@
 """Setuptools entry point."""
+
+# see : https://docs.python.org/3.8/distutils/setupscript.html
+
 import codecs
 import os
 import pathlib
