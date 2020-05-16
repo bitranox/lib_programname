@@ -43,13 +43,13 @@ function clean_caches {
 
 function upgrade_pytest {
     clr_green "updating pytest"
-    pip3 install --upgrade "git+https://github.com/pytest-dev/pytest.git"
-    pip3 install --upgrade "git+https://github.com/davidraleigh/pytest-pep8.git"
+    python -m pip install --upgrade "git+https://github.com/pytest-dev/pytest.git"
+    python -m pip install --upgrade "git+https://github.com/davidraleigh/pytest-pep8.git"
 }
 
 function upgrade_mypy {
     clr_green "updating mypy"
-    pip3 install --upgrade "git+https://github.com/python/mypy.git"
+    python -m pip install --upgrade "git+https://github.com/python/mypy.git"
 }
 
 function pytest_loop {
@@ -101,4 +101,3 @@ function pytest_loop {
 # upgrade_pytest
 # upgrade_mypy
 pytest_loop "${sleeptime_on_error}" "${pytest_root_dir}"
-

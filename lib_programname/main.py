@@ -11,13 +11,6 @@ import sys
 empty_path = pathlib.Path()
 
 
-def xxtest():
-    """
-    >>> xxtest()
-    """
-    raise RuntimeError(str(sys.argv))
-
-
 def get_programname_fullpath() -> pathlib.Path:
     """ getting the full path of the program from which a Python module is running  """
 
@@ -42,7 +35,8 @@ def get_programname_fullpath() -> pathlib.Path:
 def get_fullpath_from_main_file() -> pathlib.Path:
     """ try to get it from __main__.__file__ - does not work under pytest, doctest
 
-    >>> assert get_fullpath_from_main_file() == empty_path
+    >>> if is_doctest_running(): assert get_fullpath_from_main_file() == empty_path
+    >>> if is_setup_test_running(): assert get_fullpath_from_main_file() != empty_path
 
     """
     if not hasattr(sys.modules['__main__'], '__file__'):
@@ -56,8 +50,8 @@ def get_fullpath_from_main_file() -> pathlib.Path:
 def get_fullpath_from_sys_argv() -> pathlib.Path:
     """ try to get it from sys_argv - does not work when loaded from uwsgi, works in eclipse and pydev
 
-    >>> if not is_pytest_main_in_sys_argv(): assert get_fullpath_from_sys_argv() == pathlib.Path(__file__).resolve()
-
+    >>> if (not is_pytest_main_in_sys_argv()) and is_doctest_running(): assert get_fullpath_from_sys_argv() == pathlib.Path(__file__).resolve()
+    >>> if not is_doctest_running(): assert get_fullpath_from_sys_argv() != pathlib.Path()
     """
 
     for arg_string in sys.argv:
@@ -89,7 +83,7 @@ def get_fullpath_from_stack() -> pathlib.Path:
 
 def get_valid_executable_path_or_false(arg_string: str) -> pathlib.Path:
     """
-    >>> assert get_valid_executable_path_or_false(__main__.__file__) == empty_path
+    >>> if is_doctest_running(): assert get_valid_executable_path_or_false(__main__.__file__) == empty_path
     >>> assert get_valid_executable_path_or_false(__file__) == pathlib.Path(__file__).resolve()
     """
 
@@ -138,8 +132,7 @@ def add_python_extension_if_not_there(arg_string: str) -> str:
 
 def is_doctest_running() -> bool:
     """
-    >>> is_doctest_running()
-    True
+    >>> if not is_setup_test_running(): assert is_doctest_running() == True
     """
     for argv in sys.argv:
         if is_doctest_in_arg_string(argv):
@@ -164,5 +157,13 @@ def is_pytest_main_in_sys_argv() -> bool:
     for arg_string in sys.argv:
         arg_string = arg_string.replace('\\', '/')
         if '/pytest/__main__.py' in arg_string:
+            return True
+    return False
+
+
+def is_setup_test_running() -> bool:
+    """ if 'setup.py test' was launched """
+    for arg_string in sys.argv:
+        if 'setup.py' in arg_string:
             return True
     return False
