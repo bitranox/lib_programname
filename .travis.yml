@@ -6,8 +6,8 @@ sudo: true
 env:
     global:
         - github_master="git+https://github.com/${TRAVIS_REPO_SLUG}.git"
-        - pip_command="pip"
         - python_command="python"
+        - pip_command="python -m pip"
         - WINEDEBUG=fixme-all       # switch off wine fix me messages
         # pypi_password for lib_parameter
         # This works for sure - the Travis deploy is somehow buggy.
@@ -207,8 +207,8 @@ matrix:
       osx_image: xcode11
       env:
         # on osx pip and python points to python 2.7 - therefore we have to use pip3 and python3 here
-        - pip_command="pip3"
         - python_command="python3"
+        - pip_command="python3 pip -m"
 
 
 install:
@@ -255,7 +255,7 @@ install:
 script:
     - if [[ -f ./setup.py ]]; then
           ${lib_bash_banner} "Installing Pytest requirements";
-          ${CMDPREFIX} ${pip_command} install -r ./requirements_pytest.txt;
+          ${CMDPREFIX} ${pip_command} install --upgrade -r ./requirements_pytest.txt;
           ${CMDPREFIX} ${pip_command} install codecov;
           ${CMDPREFIX} ${pip_command} install pytest-cov;
 
