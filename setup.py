@@ -46,8 +46,10 @@ def strip_links_from_required(l_required: List[str]) -> List[str]:
     return l_req_stripped
 
 
+"""
 if is_travis_deploy():
     required = strip_links_from_required(required)
+"""
 
 
 CLASSIFIERS = [
