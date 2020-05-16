@@ -208,7 +208,7 @@ matrix:
       env:
         # on osx pip and python points to python 2.7 - therefore we have to use pip3 and python3 here
         - python_command="python3"
-        - pip_command="python3 pip -m"
+        - pip_command="python3 -m pip"
 
 
 install:
