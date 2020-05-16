@@ -1,5 +1,9 @@
+# see: https://coverage.readthedocs.io/en/v4.5.x/config.html
+
 [run]
-source  = lib_pogramname
+
+# see: https://coverage.readthedocs.io/en/v4.5.x/source.html#source
+source  = lib_pogramname, main
 include = lib_pogramname/*
 
 # (boolean, default False): whether to measure branch coverage in addition to statement coverage
@@ -26,3 +30,9 @@ exclude_lines=
     if __name__ == .__main__.:
 
 ignore_errors = True
+
+
+omit =
+    venv/*
+    tests/*
+    setup.py
