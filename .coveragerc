@@ -31,7 +31,6 @@ exclude_lines=
 
 ignore_errors = True
 
-
 omit =
     venv/*
     tests/*

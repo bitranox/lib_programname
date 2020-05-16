@@ -267,12 +267,12 @@ script:
                   exit 1;
               fi
 
-          ${lib_bash_banner} "running pip install --upgrade";
-          ${CMDPREFIX} ${pip_command} install ${github_master} --upgrade;
+          ${lib_bash_banner} "running pip install --upgrade ${github_master}";
+          ${CMDPREFIX} ${pip_command} install --upgrade ${github_master};
               if [[ $? -eq 0 ]]; then
-                  ${lib_bash_banner} "pip install --upgrade - OK";
+                  ${lib_bash_banner} "pip install --upgrade ${github_master} - OK";
               else
-                  ${lib_bash_banner_warning} "pip install --upgrade - FAILED";
+                  ${lib_bash_banner_warning} "pip install --upgrade ${github_master} - FAILED";
                   exit 1;
               fi
 
