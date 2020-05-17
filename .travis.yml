@@ -254,6 +254,7 @@ install:
 script:
     - if [[ -f ./setup.py ]]; then
           ${lib_bash_banner} "Installing Pytest requirements";
+          ${CMDPREFIX} ${pip_command} install --upgrade pytest;
           ${CMDPREFIX} ${pip_command} install --upgrade pytest-runner;
 
           ${lib_bash_banner} "running setup.py test";
