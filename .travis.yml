@@ -256,10 +256,6 @@ install:
       fi
 
 
-before_script:
-    - ./cc-test-reporter before-build
-
-
 script:
     - if [[ -f ./setup.py ]]; then
           ${lib_bash_banner} "Updating pytest-pycodestyle for Python Versions >= 3.5";
@@ -364,13 +360,8 @@ script:
 after_success:
     - ${CMDPREFIX} coverage report
     - ${CMDPREFIX} codecov
-
-    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
     # codeclimate coverage upload
-    # - ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.backend.json coverage/backend/.resultset.json   # Format backend coverage
-    # - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.frontend.json coverage/frontend/lcov.info            # Format frontend coverage
-    # - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 2                              # Sum both coverage parts into coverage/codeclimate.json
-    # - ./cc-test-reporter upload-coverage   # Upload coverage/codeclimate.json
+    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
     # This works for sure - the Travis deploy is somehow buggy.
     # create the secret :
