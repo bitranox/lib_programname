@@ -251,8 +251,6 @@ install:
           ${lib_bash_banner_warning} "no setup.py found, skipping Installation";
       fi
 
-# ${CMDPREFIX} ${pip_command} install --upgrade -r ./requirements_pytest.txt;
-
 script:
     - if [[ -f ./setup.py ]]; then
           ${lib_bash_banner} "Installing Pytest requirements";
@@ -275,7 +273,8 @@ script:
                   exit 1;
               fi
 
-          ${lib_bash_banner} "running pytest coverage only";
+          ${lib_bash_banner} "running pytest-codecov only";
+          ${CMDPREFIX} ${pip_command} install --upgrade -r ./requirements_pytest.txt;
           ${CMDPREFIX} ${pip_command} install --upgrade codecov;
           ${CMDPREFIX} ${pip_command} install --upgrade pytest-cov;
           ${CMDPREFIX} ${python_command} -m pytest --cov=${REPOSITORY_NAME};
