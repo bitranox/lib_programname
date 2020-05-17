@@ -275,6 +275,7 @@ script:
               fi
 
           ${lib_bash_banner} "running pytest-codecov only";
+          ${CMDPREFIX} ${pip_command} install --upgrade -r ./requirements_pytest.txt;
           ${CMDPREFIX} ${pip_command} install --upgrade codecov;
           ${CMDPREFIX} ${pip_command} install --upgrade pytest-cov;
           ${CMDPREFIX} ${python_command} -m pytest --cov=${REPOSITORY_NAME};
