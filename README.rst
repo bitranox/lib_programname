@@ -3,7 +3,7 @@ lib_programname
 
 |Pypi Status| |license| |maintenance|
 
-|Build Status| |Codecov Status| |Better Code| |code climate| |snyk security|
+|Build Status| |Codecov Status| |Better Code| |code climate| |code climate coverage| |snyk security|
 
 .. |license| image:: https://img.shields.io/github/license/webcomics/pywine.svg
    :target: http://en.wikipedia.org/wiki/MIT_License
@@ -19,9 +19,12 @@ lib_programname
    :target: https://bettercodehub.com/results/bitranox/lib_programname
 .. |snyk security| image:: https://snyk.io/test/github/bitranox/lib_programname/badge.svg
    :target: https://snyk.io/test/github/bitranox/lib_programname
-.. |code climate| image:: https://api.codeclimate.com/v1/badges/4a90a2679cbe3c2989d4/maintainability
+.. |code climate| image:: https://api.codeclimate.com/v1/badges/a177641a83f33aa78c9e/maintainability
    :target: https://codeclimate.com/github/bitranox/lib_programname/maintainability
    :alt: Maintainability
+.. |code climate coverage| image:: https://api.codeclimate.com/v1/badges/a177641a83f33aa78c9e/test_coverage
+   :target: https://codeclimate.com/github/bitranox/lib_programname/test_coverage
+   :alt: Code Coverage
 
 Finding the name of the program from which a Python module is running can be trickier than it would seem at first
 
@@ -115,19 +118,6 @@ following modules will be automatically installed :
 
 .. code-block:: bash
 
-    ## Test Requirements
-    ## following Requirements will be installed temporarily for
-    ## "setup.py install test" or "pip install <package> --install-option test"
-    docopt
-    typing ; python_version < "3.5"
-    pathlib; python_version < "3.4"
-    mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"
-    pytest
-    pytest-pep8 ; python_version < "3.5"
-    pytest-pycodestyle ; python_version >= "3.5"
-    pytest-mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"
-    pytest-runner
-
     ## Project Requirements
 
 Acknowledgements
@@ -152,7 +142,7 @@ This software is licensed under the `MIT license <http://en.wikipedia.org/wiki/M
 Changelog
 =========
 
-0.0.1
+0.1.0
 -----
 2020-05-15: Initial public release
 
