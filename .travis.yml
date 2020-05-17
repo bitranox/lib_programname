@@ -253,8 +253,10 @@ install:
 
 script:
     - if [[ -f ./setup.py ]]; then
-          ${lib_bash_banner} "Installing Pytest requirements";
-          ${lib_bash_banner} "running setup.py test";
+          ${lib_bash_banner} "Updating pytest-pycodestyle for Python Versions >= 3.5";
+          ${CMDPREFIX} ${pip_command} install --upgrade "pytest-pycodestyle; python_version >= \"3.5\"";
+
+          ${lib_bash_banner} "running 'setup.py test' - this automatically installs and uninstalls test requirements";
           ${CMDPREFIX} ${python_command} ./setup.py test;
               if [[ $? -eq 0 ]]; then
                   ${lib_bash_banner} "setup.py test - OK";
@@ -273,7 +275,6 @@ script:
               fi
 
           ${lib_bash_banner} "running pytest-codecov only";
-          ${CMDPREFIX} ${pip_command} install --upgrade -r ./requirements_pytest.txt;
           ${CMDPREFIX} ${pip_command} install --upgrade codecov;
           ${CMDPREFIX} ${pip_command} install --upgrade pytest-cov;
           ${CMDPREFIX} ${python_command} -m pytest --cov=${REPOSITORY_NAME};
