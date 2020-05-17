@@ -70,8 +70,7 @@ if path_readme.exists():
 
 def get_requirements_from_file(requirements_filename: str) -> List[str]:
     """
-    >>> get_requirements_from_file('requirements.txt')
-
+    >>> assert len(get_requirements_from_file('requirements.txt')) > 0
     """
     l_requirements = list()
     with open(str(pathlib.Path(__file__).parent / requirements_filename), mode='r') as requirements_file:

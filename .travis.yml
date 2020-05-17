@@ -251,12 +251,11 @@ install:
           ${lib_bash_banner_warning} "no setup.py found, skipping Installation";
       fi
 
+# ${CMDPREFIX} ${pip_command} install --upgrade -r ./requirements_pytest.txt;
+
 script:
     - if [[ -f ./setup.py ]]; then
           ${lib_bash_banner} "Installing Pytest requirements";
-          ${CMDPREFIX} ${pip_command} install --upgrade -r ./requirements_pytest.txt;
-          ${CMDPREFIX} ${pip_command} install --upgrade codecov;
-          ${CMDPREFIX} ${pip_command} install --upgrade pytest-cov;
 
           ${lib_bash_banner} "running setup.py test";
           ${CMDPREFIX} ${python_command} ./setup.py test;
@@ -272,11 +271,13 @@ script:
               if [[ $? -eq 0 ]]; then
                   ${lib_bash_banner} "pip install --upgrade ${github_master} - OK";
               else
-                  ${lib_bash_banner_warning} "pip install --upgrade ${github_master} - FAILED";
+                   ${lib_bash_banner_warning} "pip install --upgrade ${github_master} - FAILED";
                   exit 1;
               fi
 
-          ${lib_bash_banner} "running pytest";
+          ${lib_bash_banner} "running pytest coverage only";
+          ${CMDPREFIX} ${pip_command} install --upgrade codecov;
+          ${CMDPREFIX} ${pip_command} install --upgrade pytest-cov;
           ${CMDPREFIX} ${python_command} -m pytest --cov=${REPOSITORY_NAME};
               if [[ $? -eq 0 ]]; then
                   ${lib_bash_banner} "pytest - OK";
