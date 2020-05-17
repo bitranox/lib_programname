@@ -3,8 +3,8 @@
 [run]
 
 # see: https://coverage.readthedocs.io/en/v4.5.x/source.html#source
-source  = lib_pogramname
-include = lib_pogramname/*
+# source  = lib_pogramname
+# include = lib_pogramname/*
 
 # (boolean, default False): whether to measure branch coverage in addition to statement coverage
 branch  = True
