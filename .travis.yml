@@ -210,10 +210,6 @@ matrix:
         - python_command="python3"
         - pip_command="python3 -m pip"
 
-before_install:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-
 install:
     - ${pip_command} install git+https://github.com/bitranox/lib_log_utils.git;
     - ${pip_command} install git+https://github.com/bitranox/rst_include.git;
@@ -361,6 +357,8 @@ after_success:
     - ${CMDPREFIX} coverage report
     - ${CMDPREFIX} codecov
     # codeclimate coverage upload
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
     - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
     # This works for sure - the Travis deploy is somehow buggy.
