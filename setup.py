@@ -14,15 +14,12 @@ except ImportError:
     from distutils.core import setup
 
 package_name = 'lib_programname'        # type: str
-required = list()                       # type: List[str]
-
-required_for_tests = list()             # type: List[str]
 entry_points = dict()                   # type: Dict[str, List[str]]
 
 
 def get_version(dist_directory: str) -> str:
     with open(str(pathlib.Path(__file__).parent / '{dist_directory}/version.txt'.format(dist_directory=dist_directory)), mode='r') as version_file:
-        version = version_file.readline()
+        version = version_file.readline().strip()
     return version
 
 
@@ -52,15 +49,13 @@ if is_travis_deploy():
 """
 
 
-CLASSIFIERS = [
-    'Development Status :: 5 - Production/Stable',
-    'Intended Audience :: Developers',
-    'License :: OSI Approved :: MIT License',
-    'Natural Language :: English',
-    'Operating System :: OS Independent',
-    'Programming Language :: Python',
-    'Topic :: Software Development :: Libraries :: Python Modules'
-]
+CLASSIFIERS = ['Development Status :: 5 - Production/Stable',
+               'Intended Audience :: Developers',
+               'License :: OSI Approved :: MIT License',
+               'Natural Language :: English',
+               'Operating System :: OS Independent',
+               'Programming Language :: Python',
+               'Topic :: Software Development :: Libraries :: Python Modules']
 
 path_readme = pathlib.Path(__file__).parent / 'README.rst'
 long_description = package_name
@@ -73,33 +68,49 @@ if path_readme.exists():
         pass
 
 
-setup(name=package_name,
-      version=get_version(package_name),
-      url='https://github.com/bitranox/{package_name}'.format(package_name=package_name),
-      packages=[package_name],
-      package_data={package_name: ['version.txt']},
-      description=package_name,
-      long_description=long_description,
-      long_description_content_type='text/x-rst',
-      author='Robert Nowotny',
-      author_email='rnowotny1966@gmail.com',
-      classifiers=CLASSIFIERS,
-      entry_points=entry_points,
-      # minimally needs to run tests - no project requirements here
-      tests_require=['typing',
-                     'pathlib',
-                     'mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"',
-                     'pytest',
-                     'pytest-pep8 ; python_version < "3.5"',
-                     'pytest-pycodestyle ; python_version >= "3.5"',
-                     'pytest-mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"'
-                     ] + required_for_tests,
+def get_requirements_from_file(requirements_filename: str) -> List[str]:
+    """
+    >>> get_requirements_from_file('requirements.txt')
 
-      # specify what a project minimally needs to run correctly
-      install_requires=['typing', 'pathlib'] + required + required_for_tests,
-      # minimally needs to run the setup script, dependencies needs also to put here for setup.py install test
-      # dependencies must not be put here for pip install
-      setup_requires=['typing',
-                      'pathlib',
-                      'pytest-runner']
-      )
+    """
+    l_requirements = list()
+    with open(str(pathlib.Path(__file__).parent / requirements_filename), mode='r') as requirements_file:
+        for line in requirements_file:
+            line_data = get_line_data(line)
+            if line_data:
+                l_requirements.append(line_data)
+    return l_requirements
+
+
+def get_line_data(line: str) -> str:
+    line = line.strip()
+    if '#' in line:
+        line = line.split('#', 1)[0].strip()
+    return line
+
+
+tests_require = get_requirements_from_file('requirements_pytest.txt')
+install_requires = get_requirements_from_file('requirements.txt')
+setup_requires = list(set(tests_require + install_requires))
+
+if __name__ == '__main__':
+    setup(name=package_name,
+          version=get_version(package_name),
+          url='https://github.com/bitranox/{package_name}'.format(package_name=package_name),
+          packages=[package_name],
+          package_data={package_name: ['version.txt']},
+          description=package_name,
+          long_description=long_description,
+          long_description_content_type='text/x-rst',
+          author='Robert Nowotny',
+          author_email='rnowotny1966@gmail.com',
+          classifiers=CLASSIFIERS,
+          entry_points=entry_points,
+          # minimally needs to run tests - no project requirements here
+          tests_require=tests_require,
+          # specify what a project minimally needs to run correctly
+          install_requires=install_requires + ['typing', 'pathlib'],
+          # minimally needs to run the setup script, dependencies needs also to put here for "setup.py install test"
+          # dependencies must not be put here for pip install
+          setup_requires=setup_requires
+          )
