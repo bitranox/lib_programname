@@ -9,6 +9,7 @@ env:
         - python_command="python"
         - pip_command="python -m pip"
         - WINEDEBUG=fixme-all       # switch off wine fix me messages
+        - CC_TEST_REPORTER_ID=a745068413ec369527ed6cf0aaabc344894fbad87231f5a7649ffb929c19e0ce   # codeclimate coverage id
         # pypi_password for lib_parameter
         # This works for sure - the Travis deploy is somehow buggy.
         # create the secret :
@@ -209,6 +210,9 @@ matrix:
         - python_command="python3"
         - pip_command="python3 -m pip"
 
+before_install:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
 
 install:
     - ${pip_command} install git+https://github.com/bitranox/lib_log_utils.git;
