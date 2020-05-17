@@ -254,6 +254,8 @@ install:
 script:
     - if [[ -f ./setup.py ]]; then
           ${lib_bash_banner} "Installing Pytest requirements";
+          # 'setup.py test' does install that requirements itself - but it fails on python3.5
+          ${CMDPREFIX} ${pip_command} install --upgrade pytest-runner;
 
           ${lib_bash_banner} "running setup.py test";
           ${CMDPREFIX} ${python_command} ./setup.py test;
