@@ -255,8 +255,10 @@ install:
           ${lib_bash_banner_warning} "no setup.py found, skipping Installation";
       fi
 
+
 before_script:
-  - ./cc-test-reporter before-build
+    - ./cc-test-reporter before-build
+
 
 script:
     - if [[ -f ./setup.py ]]; then
