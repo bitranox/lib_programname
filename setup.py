@@ -6,21 +6,15 @@ see : https://docs.python.org/3.8/distutils/setupscript.html
 import codecs
 import os
 import pathlib
-from typing import Dict, List
+from typing import List
+
+# single point of configuration
+import project_conf
 
 try:
     from setuptools import setup        # type: ignore
 except ImportError:
     from distutils.core import setup
-
-package_name = 'lib_programname'        # type: str
-entry_points = dict()                   # type: Dict[str, List[str]]
-
-
-def get_version(dist_directory: str) -> str:
-    with open(str(pathlib.Path(__file__).parent / '{dist_directory}/version.txt'.format(dist_directory=dist_directory)), mode='r') as version_file:
-        version = version_file.readline().strip()
-    return version
 
 
 def is_travis_deploy() -> bool:
@@ -43,22 +37,10 @@ def strip_links_from_required(l_required: List[str]) -> List[str]:
     return l_req_stripped
 
 
-"""
-if is_travis_deploy():
-    required = strip_links_from_required(required)
-"""
-
-
-CLASSIFIERS = ['Development Status :: 5 - Production/Stable',
-               'Intended Audience :: Developers',
-               'License :: OSI Approved :: MIT License',
-               'Natural Language :: English',
-               'Operating System :: OS Independent',
-               'Programming Language :: Python',
-               'Topic :: Software Development :: Libraries :: Python Modules']
-
 path_readme = pathlib.Path(__file__).parent / 'README.rst'
-long_description = package_name
+long_description = project_conf.package_name
+
+
 if path_readme.exists():
     # noinspection PyBroadException
     try:
@@ -92,19 +74,26 @@ tests_require = get_requirements_from_file('requirements_pytest.txt')
 install_requires = get_requirements_from_file('requirements.txt')
 setup_requires = list(set(tests_require + install_requires))
 
+"""
+# needs to be tested later for pypi deployment
+if is_travis_deploy():
+    required = strip_links_from_required(required)
+"""
+
+
 if __name__ == '__main__':
-    setup(name=package_name,
-          version=get_version(package_name),
-          url='https://github.com/bitranox/{package_name}'.format(package_name=package_name),
-          packages=[package_name],
-          package_data={package_name: ['version.txt']},
-          description=package_name,
+    setup(name=project_conf.package_name,
+          version=project_conf.version,
+          url=project_conf.url,
+          packages=[project_conf.packages],
+          package_data=project_conf.package_data,
+          description=project_conf.description,
           long_description=long_description,
           long_description_content_type='text/x-rst',
-          author='Robert Nowotny',
-          author_email='rnowotny1966@gmail.com',
-          classifiers=CLASSIFIERS,
-          entry_points=entry_points,
+          author=project_conf.author,
+          author_email=project_conf.author_email,
+          classifiers=project_conf.CLASSIFIERS,
+          entry_points=project_conf.entry_points,
           # minimally needs to run tests - no project requirements here
           tests_require=tests_require,
           # specify what a project minimally needs to run correctly
