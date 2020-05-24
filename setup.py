@@ -9,7 +9,7 @@ import pathlib
 from typing import List
 
 # single point of configuration
-import project_conf
+from . import project_conf
 
 try:
     from setuptools import setup        # type: ignore
