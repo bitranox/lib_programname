@@ -80,7 +80,6 @@ if is_travis_deploy():
     required = strip_links_from_required(required)
 """
 
-
 if __name__ == '__main__':
     setup(name=project_conf.package_name,
           version=project_conf.version,

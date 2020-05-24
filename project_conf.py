@@ -9,6 +9,10 @@ version = '0.0.1'
 codeclimate_link_hash = "a177641a83f33aa78c9e"                                             # for lib_programname
 cc_test_reporter_id = 'a745068413ec369527ed6cf0aaabc344894fbad87231f5a7649ffb929c19e0ce'   # codeclimate coverage id for lib_programname
 
+# include package data files
+# package_data = {package_name: ['some_file_to_include.txt']}
+package_data = dict()
+
 # pypi_password
 # to create the secret :
 # cd /<repository>
@@ -38,8 +42,7 @@ github_account = 'bitranox'
 
 description = package_name  # short description - should be entered here
 long_description = package_name  # will be overwritten with the content of README.rst if exists
-packages = [package_name]
-package_data = {package_name: ['version.txt']}
+packages = [str(package_name)]
 url = 'https://github.com/bitranox/{package_name}'.format(package_name=package_name)
 
 CLASSIFIERS = ['Development Status :: 5 - Production/Stable',
