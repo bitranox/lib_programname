@@ -56,7 +56,7 @@ CLASSIFIERS = ['Development Status :: 5 - Production/Stable',
 
 def create_init_config_file() -> None:
     path_version_py = pathlib.Path(__file__).parent / src_dir / 'init_config.py'
-    with open(path_version_py, 'w') as f_version_py:
+    with open(str(path_version_py), 'w') as f_version_py:
         lines = ["version = '{}'\n".format(version),
                  "title = '{}'\n".format(init_config_title),
                  "name = '{}'\n".format(init_config_name)]
