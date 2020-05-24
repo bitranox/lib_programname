@@ -42,7 +42,7 @@ github_account = 'bitranox'
 
 description = package_name  # short description - should be entered here
 long_description = package_name  # will be overwritten with the content of README.rst if exists
-packages = [str(package_name)]
+packages = [package_name]
 url = 'https://github.com/bitranox/{package_name}'.format(package_name=package_name)
 
 CLASSIFIERS = ['Development Status :: 5 - Production/Stable',

@@ -84,7 +84,7 @@ if __name__ == '__main__':
     setup(name=project_conf.package_name,
           version=project_conf.version,
           url=project_conf.url,
-          packages=[project_conf.packages],
+          packages=project_conf.packages,
           package_data=project_conf.package_data,
           description=project_conf.description,
           long_description=long_description,
