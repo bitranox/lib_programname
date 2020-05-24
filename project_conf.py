@@ -6,7 +6,15 @@ from typing import List, Dict
 
 package_name = 'lib_programname'  # type: str
 version = '0.0.1'
-codeclimate_link_hash = "a177641a83f33aa78c9e"  # for lib_programname
+codeclimate_link_hash = "a177641a83f33aa78c9e"                                             # for lib_programname
+cc_test_reporter_id = 'a745068413ec369527ed6cf0aaabc344894fbad87231f5a7649ffb929c19e0ce'   # codeclimate coverage id for lib_programname
+
+# pypi_password
+# to create the secret :
+# cd /<repository>
+# travis encrypt -r bitranox/lib_parameter pypi_password=*****
+# copy and paste the encrypted password here
+travis_secure = 'none'      # secure
 
 # Entry Points Example :
 # need to create __main__.py:
@@ -52,10 +60,13 @@ def create_init_config_file() -> None:
         f_version_py.writelines(lines)
 
 
-create_init_config_file()
-
 if __name__ == '__main__':
+    create_init_config_file()
+
+    # create readme.rst
     import build_docs
     build_docs_args = dict()
     build_docs_args['<TRAVIS_REPO_SLUG>'] = '{}/{}'.format(github_account, package_name)
     build_docs.main(build_docs_args)
+
+    # create Travis File from Template
