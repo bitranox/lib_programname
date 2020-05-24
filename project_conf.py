@@ -11,7 +11,7 @@ cc_test_reporter_id = 'a745068413ec369527ed6cf0aaabc344894fbad87231f5a7649ffb929
 
 # include package data files
 # package_data = {package_name: ['some_file_to_include.txt']}
-package_data = dict()
+package_data = dict()       # type: Dict[str, List[str]]
 
 # pypi_password
 # to create the secret :

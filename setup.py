@@ -74,11 +74,11 @@ tests_require = get_requirements_from_file('requirements_pytest.txt')
 install_requires = get_requirements_from_file('requirements.txt')
 setup_requires = list(set(tests_require + install_requires))
 
-"""
-# needs to be tested later for pypi deployment
+# for deploy on pypi we must not rely on imports from github
 if is_travis_deploy():
-    required = strip_links_from_required(required)
-"""
+    tests_require = strip_links_from_required(tests_require)
+    install_requires = strip_links_from_required(install_requires)
+    setup_requires = strip_links_from_required(setup_requires)
 
 if __name__ == '__main__':
     setup(name=project_conf.package_name,
