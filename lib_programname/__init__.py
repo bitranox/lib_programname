@@ -1,7 +1,7 @@
-from . import init_config
+from . import __init__conf__
 
-__title__ = init_config.title
-__version__ = init_config.version
-__name__ = init_config.name
+__title__ = __init__conf__.title
+__version__ = __init__conf__.version
+__name__ = __init__conf__.name
 
 from .lib_programname import *
