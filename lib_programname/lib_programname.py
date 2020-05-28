@@ -62,6 +62,12 @@ def get_fullpath_from_main_file() -> pathlib.Path:
     >>> if is_doctest_running(): assert get_fullpath_from_main_file() == empty_path
     >>> if is_setup_test_running(): assert get_fullpath_from_main_file() != empty_path
 
+    >>> # test no attrib __main__.__file__
+    >>> save_main_file = str(__main__.__file__)
+    >>> delattr(__main__, '__file__')
+    >>> assert get_fullpath_from_main_file() == empty_path
+    >>> setattr(__main__, '__file__', save_main_file)
+
     """
     if not hasattr(sys.modules['__main__'], '__file__'):
         return empty_path
@@ -76,6 +82,22 @@ def get_fullpath_from_sys_argv() -> pathlib.Path:
 
     >>> if (not is_pytest_main_in_sys_argv()) and is_doctest_running(): assert get_fullpath_from_sys_argv() == pathlib.Path(__file__).resolve()
     >>> if not is_doctest_running(): assert get_fullpath_from_sys_argv() != pathlib.Path()
+
+    >>> # force test invalid sys.path
+    >>> save_sys_argv = list(sys.argv)
+    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py').resolve())
+    >>> sys.argv = [invalid_path]
+    >>> assert get_fullpath_from_sys_argv() == pathlib.Path()
+    >>> sys.argv = list(save_sys_argv)
+
+    >>> # force test valid sys.path
+    >>> save_sys_path = list(sys.argv)
+    >>> valid_path = str((pathlib.Path(__file__).resolve()))
+    >>> sys.argv = [valid_path]
+    >>> assert get_fullpath_from_sys_argv() == pathlib.Path(valid_path)
+    >>> sys.argv = list(save_sys_argv)
+
+
     """
 
     for arg_string in sys.argv:
@@ -157,6 +179,14 @@ def add_python_extension_if_not_there(arg_string: str) -> str:
 def is_doctest_running() -> bool:
     """
     >>> if not is_setup_test_running(): assert is_doctest_running() == True
+
+    >>> # fore test doctest is not running
+    >>> save_sys_argv = list(sys.argv)
+    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py').resolve())
+    >>> sys.argv = [invalid_path]
+    >>> assert not is_doctest_running()
+    >>> sys.argv = list(save_sys_argv)
+
     """
     for argv in sys.argv:
         if is_doctest_in_arg_string(argv):
@@ -178,6 +208,21 @@ def is_doctest_in_arg_string(arg_string: str) -> bool:
 
 
 def is_pytest_main_in_sys_argv() -> bool:
+    """
+    >>> # force pytest is running
+    >>> save_sys_argv = list(sys.argv)
+    >>> fake_pytest_path = str((pathlib.Path(__file__).parent / 'pytest/__main__.py').resolve())
+    >>> sys.argv = [fake_pytest_path]
+    >>> assert is_pytest_main_in_sys_argv()
+    >>> sys.argv = list(save_sys_argv)
+
+    >>> # force pytest is not running
+    >>> save_sys_argv = list(sys.argv)
+    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py').resolve())
+    >>> sys.argv = [invalid_path]
+    >>> assert not is_pytest_main_in_sys_argv()
+    >>> sys.argv = list(save_sys_argv)
+    """
     for arg_string in sys.argv:
         arg_string = arg_string.replace('\\', '/')
         if '/pytest/__main__.py' in arg_string:
@@ -186,7 +231,24 @@ def is_pytest_main_in_sys_argv() -> bool:
 
 
 def is_setup_test_running() -> bool:
-    """ if 'setup.py test' was launched """
+    """ if 'setup.py test' was launched
+
+    >>> # force setup.py is running
+    >>> save_sys_argv = list(sys.argv)
+    >>> fake_setup_path = str((pathlib.Path(__file__).parent / 'setup.py').resolve())
+    >>> sys.argv = [fake_setup_path]
+    >>> assert is_setup_test_running()
+    >>> sys.argv = list(save_sys_argv)
+
+    >>> # force setup.py is not running
+    >>> save_sys_argv = list(sys.argv)
+    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py').resolve())
+    >>> sys.argv = [invalid_path]
+    >>> assert not is_setup_test_running()
+    >>> sys.argv = list(save_sys_argv)
+
+    """
+
     for arg_string in sys.argv:
         if 'setup.py' in arg_string:
             return True
