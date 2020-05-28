@@ -36,7 +36,47 @@ empty_path = pathlib.Path()
 
 
 def get_programname_fullpath() -> pathlib.Path:
-    """ getting the full path of the program from which a Python module is running  """
+    """
+    getting the full path of the program from which a Python module is running
+
+    >>> ### TEST get it via __main__.__file__
+    >>> # Setup
+    >>> # force __main__.__file__ valid
+    >>> save_main_file = str(__main__.__file__)
+    >>> __main__.__file__ = __file__
+
+    >>> # Test via __main__.__file__
+    >>> assert get_programname_fullpath() == pathlib.Path(__file__).resolve()
+
+
+    >>> ### TEST get it via sys.argv
+    >>> # Setup
+    >>> # force __main__.__file__ invalid
+    >>> __main__.__file__ = str((pathlib.Path(__file__).parent / 'invalid_file.py'))  # .resolve() seems not to work on a non existing file in python 3.5
+
+    >>> # force sys.argv valid
+    >>> save_sys_argv = list(sys.argv)
+    >>> valid_path = str((pathlib.Path(__file__).resolve()))
+    >>> sys.argv = [valid_path]
+
+    >>> # Test via sys.argv
+    >>> assert get_programname_fullpath() == pathlib.Path(__file__).resolve()
+
+
+    >>> ### TEST get it via stack
+    >>> # Setup
+    >>> # force sys.argv invalid
+    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py'))  # .resolve() seems not to work on a non existing file in python 3.5
+    >>> sys.argv = [invalid_path]
+
+
+    >>> assert get_programname_fullpath()
+
+    >>> # teardown
+    >>> __main__.__file__ = save_main_file
+    >>> sys.argv = list(save_sys_argv)
+
+    """
 
     # try to get it from __main__.__file__ - does not work under pytest, doctest
     path_candidate = get_fullpath_from_main_file()
@@ -53,7 +93,7 @@ def get_programname_fullpath() -> pathlib.Path:
     if path_candidate != empty_path:
         return path_candidate
 
-    raise RuntimeError('can not determine the path of the launched program')
+    raise RuntimeError('can not determine the path of the launched program')    # pragma: no cover
 
 
 def get_fullpath_from_main_file() -> pathlib.Path:
@@ -121,10 +161,10 @@ def get_fullpath_from_stack() -> pathlib.Path:
             valid_executable_path = get_valid_executable_path_or_false(arg_string)
             if valid_executable_path != empty_path:
                 return valid_executable_path
-            levels_back += 1
-        except IndexError:
-            break
-    return empty_path
+            levels_back += 1        # pragma : no cover     # its hard to tamper around with the stack, therefore we dont cover it
+        except IndexError:          # pragma : no cover
+            break                   # pragma : no cover
+    return empty_path               # pragma : no cover
 
 
 def get_valid_executable_path_or_false(arg_string: str) -> pathlib.Path:
