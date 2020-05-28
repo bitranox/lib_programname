@@ -58,6 +58,7 @@ def main(args: Dict[str, str]) -> None:
     logger.info('replace repository related strings')
     rst_include.rst_str_replace(source='./README.rst', target='', old='{repository_slug}', new=travis_repo_slug, inplace=True)
     rst_include.rst_str_replace(source='./README.rst', target='', old='{repository}', new=repository, inplace=True)
+    rst_include.rst_str_replace(source='./README.rst', target='', old='{double_underline_repository}', new='=' * len(repository), inplace=True)
     rst_include.rst_str_replace(source='./README.rst', target='', old='{repository_dashed}', new=repository_dashed, inplace=True)
     rst_include.rst_str_replace(source='./README.rst', target='', old='{last_update_yyyy}', new=str(datetime.date.today().year + 1), inplace=True)
     rst_include.rst_str_replace(source='./README.rst', target='', old='{codeclimate_link_hash}', new=project_conf.codeclimate_link_hash, inplace=True)

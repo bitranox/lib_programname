@@ -1,12 +1,36 @@
-# Finding the name of the program from which a Python module is
-# running can be trickier than it would seem at first
-# see : https://doughellmann.com/blog/2012/04/30/determining-the-name-of-a-process-from-python/
+"""
+Usage:  lib_programname (-h | -v | -i)
 
-# stdlib
+    -h, --help          show help
+    -v, --version       show version
+    -i, --info          show Info
+
+Finding the name of the program from which a Python module is running can be trickier than it would seem at first
+see : https://doughellmann.com/blog/2012/04/30/determining-the-name-of-a-process-from-python/
+
+this module exposes no other useful functions to the commandline
+
+"""
+# docopt syntax see : http://docopt.org/
+
+
+# STDLIB
 import inspect
 import __main__   # type: ignore
 import pathlib
 import sys
+from typing import Dict, Union
+
+# EXT
+from docopt import docopt           # type: ignore
+
+# PROJ
+try:
+    from . import __init__conf__
+except ImportError:                 # pragma: no cover
+    # imports for doctest
+    import __init__conf__           # type: ignore  # pragma: no cover
+
 
 empty_path = pathlib.Path()
 
@@ -167,3 +191,48 @@ def is_setup_test_running() -> bool:
         if 'setup.py' in arg_string:
             return True
     return False
+
+
+# we might import this module and call main from another program and pass docopt args manually
+def main(docopt_args: Dict[str, Union[bool, str]]) -> None:
+    """
+    >>> docopt_args = dict()
+    >>> docopt_args['--version'] = True
+    >>> docopt_args['--info'] = False
+    >>> main(docopt_args)   # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    version: ...
+
+
+    >>> docopt_args['--version'] = False
+    >>> docopt_args['--info'] = True
+    >>> main(docopt_args)   # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    information for ...
+
+    >>> docopt_args['--version'] = False
+    >>> docopt_args['--info'] = False
+    >>> main(docopt_args)
+
+
+    """
+    if docopt_args['--version']:
+        __init__conf__.print_version()
+    elif docopt_args['--info']:
+        __init__conf__.print_info()
+
+
+# entry point via commandline
+def main_commandline() -> None:
+    """
+    >>> main_commandline()  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    Traceback (most recent call last):
+        ...
+    docopt.DocoptExit: ...
+
+    """
+    docopt_args = docopt(__doc__)
+    main(docopt_args)       # pragma: no cover
+
+
+# entry point if main
+if __name__ == '__main__':
+    main_commandline()

@@ -26,16 +26,24 @@ lib_programname
    :target: https://codeclimate.com/github/bitranox/lib_programname/test_coverage
    :alt: Code Coverage
 
-Finding the name of the program from which a Python module is running can be trickier than it would seem at first
+Finding the name of the program from which a Python module is running can be trickier than it would seem at first, so lets make it damned easy.
+This works under pycharm, pytest, pytest-docrunner, uwsgi, dreampie etc. correctly.
 
-supports python 3.8 and possibly other dialects.
+You might dive into Dough Hellmans `article <https://doughellmann.com/blog/2012/04/30/determining-the-name-of-a-process-from-python/>`_
+about that issue.
 
-`100% code coverage <https://codecov.io/gh/bitranox/lib_programname>`_, mypy static type checking, tested under `Linux, OsX, Windows and Wine <https://travis-ci.org/bitranox/lib_programname>`_, automatic daily builds  and monitoring
+automated tests, Travis Matrix, Documentation, Badges for this Project are managed with `lib_travis_template <https://github
+.com/bitranox/lib_travis_template>`_ - check it out
+
+supports python 3.5-3.8, pypy3 and possibly other dialects.
+
+`100% code coverage <https://codecov.io/gh/bitranox/lib_programname>`_, mypy static type checking, tested under `Linux, macOS, Windows and Wine <https://travis-ci
+.org/bitranox/lib_programname>`_, automatic daily builds  and monitoring
 
 ----
 
 - `Installation and Upgrade`_
-- `Basic Usage`_
+- `Usage`_
 - `Requirements`_
 - `Acknowledgements`_
 - `Contribute`_
@@ -50,60 +58,98 @@ supports python 3.8 and possibly other dialects.
 Installation and Upgrade
 ------------------------
 
-From source code:
+Before You start, its highly recommended to update pip and setup tools:
+
 
 .. code-block:: bash
 
-    # normal install
-    python setup.py install
-    # test without installing
-    python setup.py test
+    python3 -m pip --upgrade pip
+    python3 -m pip --upgrade setuptools
+    python3 -m pip --upgrade wheel
 
-via pip latest Release:
 
-.. code-block:: bash
-
-    # latest Release from pypi
-    pip install lib_programname
-
-    # test without installing
-    pip install lib_programname --install-option test
-
-via pip latest Development Version:
+install latest version with pip (recommended):
 
 .. code-block:: bash
 
     # upgrade all dependencies regardless of version number (PREFERRED)
-    pip install --upgrade git+https://github.com/bitranox/lib_programname.git --upgrade-strategy eager
-    # normal install
-    pip install --upgrade git+https://github.com/bitranox/lib_programname.git
-    # test without installing
-    pip install git+https://github.com/bitranox/lib_programname.git --install-option test
+    python3 -m pip install --upgrade git+https://github.com/bitranox/lib_programname.git --upgrade-strategy eager
 
-via requirements.txt:
+    # test without installing (can be skipped)
+    python3 -m pip install git+https://github.com/bitranox/lib_programname.git --install-option test
+
+    # normal install
+    python3 -m pip install --upgrade git+https://github.com/bitranox/lib_programname.git
+
+
+install latest pypi Release (if there is any):
+
+.. code-block:: bash
+
+    # latest Release from pypi
+    python3 -m pip install --upgrade lib_programname
+
+    # test without installing (can be skipped)
+    python3 -m pip install lib_programname --install-option test
+
+    # normal install
+    python3 -m pip install --upgrade lib_programname
+
+
+
+include it into Your requirements.txt:
 
 .. code-block:: bash
 
     # Insert following line in Your requirements.txt:
-    # for the latest Release:
+    # for the latest Release on pypi (if any):
     lib_programname
     # for the latest Development Version :
-    git+https://github.com/bitranox/lib_programname.git
+    lib_programname @ git+https://github.com/bitranox/lib_programname.git
 
     # to install and upgrade all modules mentioned in requirements.txt:
-    pip install --upgrade -r /<path>/requirements.txt
+    python3 -m pip install --upgrade -r /<path>/requirements.txt
 
-via python:
 
-.. code-block:: python
+Install from source code:
 
-    # for the latest Release
-    python -m pip install upgrade lib_programname
+.. code-block:: bash
 
-    # for the latest Development Version
-    python -m pip install upgrade git+https://github.com/bitranox/lib_programname.git
+    # cd ~
+    $ git clone https://github.com/bitranox/lib_programname.git
+    $ cd lib_programname
 
-Basic Usage
+    # test without installing (can be skipped)
+    python3 setup.py test
+
+    # normal install
+    python3 setup.py install
+
+
+via makefile:
+
+if You are on linux, makefiles are a very convenient way to install. Here we can do much more, like installing virtual environment, clean caches and so on.
+This is still in development and not recommended / working at the moment:
+
+.. code-block:: shell
+
+    # from Your shell's homedirectory:
+    $ git clone https://github.com/bitranox/lib_programname.git
+    $ cd lib_programname
+
+    # to run the tests:
+    $ make test
+
+    # to install the package
+    $ make install
+
+    # to clean the package
+    $ make clean
+
+    # uninstall the package
+    $ make uninstall
+
+Usage
 -----------
 
 .. code-block:: py
@@ -119,6 +165,7 @@ following modules will be automatically installed :
 .. code-block:: bash
 
     ## Project Requirements
+    docopt
 
 Acknowledgements
 ----------------
