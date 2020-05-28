@@ -183,7 +183,7 @@ def is_doctest_running() -> bool:
 
     >>> # fore test doctest is not running
     >>> save_sys_argv = list(sys.argv)
-    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py').resolve())
+    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py'))  # .resolve does not work on a non existing file in python 3.5
     >>> sys.argv = [invalid_path]
     >>> assert not is_doctest_running()
     >>> sys.argv = list(save_sys_argv)
@@ -219,7 +219,7 @@ def is_pytest_main_in_sys_argv() -> bool:
 
     >>> # force pytest is not running
     >>> save_sys_argv = list(sys.argv)
-    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py').resolve())
+    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py'))   # .resolve does not work on a non existing file in python 3.5
     >>> sys.argv = [invalid_path]
     >>> assert not is_pytest_main_in_sys_argv()
     >>> sys.argv = list(save_sys_argv)
@@ -243,7 +243,7 @@ def is_setup_test_running() -> bool:
 
     >>> # force setup.py is not running
     >>> save_sys_argv = list(sys.argv)
-    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py').resolve())
+    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py'))     # .resolve does not work on a non existing file in python 3.5
     >>> sys.argv = [invalid_path]
     >>> assert not is_setup_test_running()
     >>> sys.argv = list(save_sys_argv)
