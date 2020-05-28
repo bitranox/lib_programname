@@ -85,7 +85,7 @@ def get_fullpath_from_sys_argv() -> pathlib.Path:
 
     >>> # force test invalid sys.path
     >>> save_sys_argv = list(sys.argv)
-    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py').resolve())
+    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py'))  # .resolve() seems not to work on a non existing file in python 3.5
     >>> sys.argv = [invalid_path]
     >>> assert get_fullpath_from_sys_argv() == pathlib.Path()
     >>> sys.argv = list(save_sys_argv)
