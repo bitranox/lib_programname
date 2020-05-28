@@ -16,7 +16,7 @@ this module exposes no other useful functions to the commandline
 
 # STDLIB
 import inspect
-import __main__   # type: ignore
+import __main__                     # type: ignore
 import pathlib
 import sys
 from typing import Dict, Union
@@ -159,12 +159,12 @@ def get_fullpath_from_stack() -> pathlib.Path:
         try:
             arg_string = inspect.stack()[levels_back][1]
             valid_executable_path = get_valid_executable_path_or_false(arg_string)
-            if valid_executable_path != empty_path:
+            if valid_executable_path != empty_path:             # pragma: no cover     # its hard to tamper around with the stack, therefore we dont cover it
                 return valid_executable_path
-            levels_back += 1        # pragma : no cover     # its hard to tamper around with the stack, therefore we dont cover it
-        except IndexError:          # pragma : no cover
-            break                   # pragma : no cover
-    return empty_path               # pragma : no cover
+            levels_back += 1                                    # pragma: no cover
+        except IndexError:                                      # pragma: no cover
+            break                                               # pragma: no cover
+    return empty_path                                           # pragma: no cover
 
 
 def get_valid_executable_path_or_false(arg_string: str) -> pathlib.Path:
