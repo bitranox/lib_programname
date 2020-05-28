@@ -212,7 +212,7 @@ def is_pytest_main_in_sys_argv() -> bool:
     """
     >>> # force pytest is running
     >>> save_sys_argv = list(sys.argv)
-    >>> fake_pytest_path = str((pathlib.Path(__file__).parent / 'pytest/__main__.py').resolve())
+    >>> fake_pytest_path = str((pathlib.Path(__file__).parent / 'pytest/__main__.py'))      # .resolve does not work on a non existing file in python 3.5
     >>> sys.argv = [fake_pytest_path]
     >>> assert is_pytest_main_in_sys_argv()
     >>> sys.argv = list(save_sys_argv)
@@ -236,7 +236,7 @@ def is_setup_test_running() -> bool:
 
     >>> # force setup.py is running
     >>> save_sys_argv = list(sys.argv)
-    >>> fake_setup_path = str((pathlib.Path(__file__).parent / 'setup.py').resolve())
+    >>> fake_setup_path = str((pathlib.Path(__file__).parent / 'setup.py'))         # .resolve does not work on a non existing file in python 3.5
     >>> sys.argv = [fake_setup_path]
     >>> assert is_setup_test_running()
     >>> sys.argv = list(save_sys_argv)
