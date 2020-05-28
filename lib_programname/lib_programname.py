@@ -138,8 +138,9 @@ def get_valid_executable_path_or_false(arg_string: str) -> pathlib.Path:
 
     arg_string = remove_doctest_and_docrunner_parameters(arg_string)
     arg_string = add_python_extension_if_not_there(arg_string)
-    path = pathlib.Path(arg_string).resolve()
+    path = pathlib.Path(arg_string)
     if path.is_file():
+        path = path.resolve()   # .resolve does not work on a non existing file in python 3.5
         return path
     else:
         return empty_path
