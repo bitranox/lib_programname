@@ -4,6 +4,7 @@ version = '0.1.0'
 url = 'https://github.com/bitranox/lib_programname'
 author = 'Robert Nowotny'
 author_email = 'rnowotny1966@gmail.com'
+shell_command = 'lib_programname'
 
 
 def print_version() -> None:

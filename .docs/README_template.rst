@@ -18,6 +18,7 @@ automated tests, Travis Matrix, Documentation, Badges for this Project are manag
 
 - `Installation and Upgrade`_
 - `Usage`_
+- `Usage from Commandline`_
 - `Requirements`_
 - `Acknowledgements`_
 - `Contribute`_
@@ -33,10 +34,13 @@ Installation and Upgrade
 ------------------------
 .. include:: ./installation.rst
 
-
 Usage
 -----------
 .. include:: ./usage.rst
+
+Usage from Commandline
+------------------------
+.. include:: ./commandline_help.txt
 
 Requirements
 ------------

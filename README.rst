@@ -35,7 +35,7 @@ about that issue.
 automated tests, Travis Matrix, Documentation, Badges for this Project are managed with `lib_travis_template <https://github
 .com/bitranox/lib_travis_template>`_ - check it out
 
-supports python 3.5-3.8, pypy3 and possibly other dialects.
+supports python 3.6-3.8, pypy3 and possibly other dialects.
 
 `100% code coverage <https://codecov.io/gh/bitranox/lib_programname>`_, mypy static type checking, tested under `Linux, macOS, Windows and Wine <https://travis-ci
 .org/bitranox/lib_programname>`_, automatic daily builds  and monitoring
@@ -44,6 +44,7 @@ supports python 3.5-3.8, pypy3 and possibly other dialects.
 
 - `Installation and Upgrade`_
 - `Usage`_
+- `Usage from Commandline`_
 - `Requirements`_
 - `Acknowledgements`_
 - `Contribute`_
@@ -157,6 +158,21 @@ Usage
     import lib_programname
     # this returns the fully resolved path to the launched python program
     path_to_program = lib_programname.get_programname_fullpath()    # type: pathlib.Path
+
+Usage from Commandline
+------------------------
+
+.. code-block:: bash
+
+   Usage:
+       lib_programname (-h | -v | -i)
+
+   Options:
+       -h, --help          show help
+       -v, --version       show version
+       -i, --info          show Info
+
+   this module exposes no other useful functions to the commandline
 
 Requirements
 ------------

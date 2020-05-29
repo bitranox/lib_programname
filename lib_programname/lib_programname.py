@@ -1,19 +1,3 @@
-"""
-Usage:  lib_programname (-h | -v | -i)
-
-    -h, --help          show help
-    -v, --version       show version
-    -i, --info          show Info
-
-Finding the name of the program from which a Python module is running can be trickier than it would seem at first
-see : https://doughellmann.com/blog/2012/04/30/determining-the-name-of-a-process-from-python/
-
-this module exposes no other useful functions to the commandline
-
-"""
-# docopt syntax see : http://docopt.org/
-
-
 # STDLIB
 import inspect
 import __main__                     # type: ignore
@@ -26,9 +10,11 @@ from docopt import docopt           # type: ignore
 
 # PROJ
 try:
+    from .__doc__ import __doc__
     from . import __init__conf__
 except ImportError:                 # pragma: no cover
     # imports for doctest
+    from __doc__ import __doc__     # type: ignore  # pragma: no cover
     import __init__conf__           # type: ignore  # pragma: no cover
 
 

@@ -167,10 +167,11 @@ function test_commandline_interface_venv() {
   install_clean_virtual_environment
   cd "${project_root_dir}" || exit
   commandline_install_result=$(~/venv/bin/python3 "${project_root_dir}/setup.py" install | grep "Installing" | grep "script to")
+  clr_green "issuing command : ${commandline_install_result} -v"
   # shellcheck disable=SC2206
   arr_commandline_install_result=($commandline_install_result)
   if ! "${arr_commandline_install_result[4]}/${arr_commandline_install_result[1]}" -v; then
-    my_banner_warning "pytest commandline interface ERROR"
+    my_banner_warning "test commandline interface on virtual environment ERROR"
     beep
     sleep "${sleeptime_on_error}"
     return 1
