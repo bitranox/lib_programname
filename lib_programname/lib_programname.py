@@ -99,7 +99,7 @@ def get_fullpath_from_main_file() -> pathlib.Path:
         return empty_path
 
     arg_string = __main__.__file__
-    valid_executable_path = get_valid_executable_path_or_false(arg_string)
+    valid_executable_path = get_valid_executable_path_or_empty_path(arg_string)
     return valid_executable_path
 
 
@@ -127,7 +127,7 @@ def get_fullpath_from_sys_argv() -> pathlib.Path:
     """
 
     for arg_string in sys.argv:
-        valid_executable_path = get_valid_executable_path_or_false(arg_string)
+        valid_executable_path = get_valid_executable_path_or_empty_path(arg_string)
         if valid_executable_path != empty_path:
             return valid_executable_path
     return empty_path
@@ -144,7 +144,7 @@ def get_fullpath_from_stack() -> pathlib.Path:
     while True:
         try:
             arg_string = inspect.stack()[levels_back][1]
-            valid_executable_path = get_valid_executable_path_or_false(arg_string)
+            valid_executable_path = get_valid_executable_path_or_empty_path(arg_string)
             if valid_executable_path != empty_path:             # pragma: no cover     # its hard to tamper around with the stack, therefore we dont cover it
                 return valid_executable_path
             levels_back += 1                                    # pragma: no cover
@@ -153,10 +153,10 @@ def get_fullpath_from_stack() -> pathlib.Path:
     return empty_path                                           # pragma: no cover
 
 
-def get_valid_executable_path_or_false(arg_string: str) -> pathlib.Path:
+def get_valid_executable_path_or_empty_path(arg_string: str) -> pathlib.Path:
     """
-    >>> if is_doctest_running(): assert get_valid_executable_path_or_false(__main__.__file__) == empty_path
-    >>> assert get_valid_executable_path_or_false(__file__) == pathlib.Path(__file__).resolve()
+    >>> if is_doctest_running(): assert get_valid_executable_path_or_empty_path(__main__.__file__) == empty_path
+    >>> assert get_valid_executable_path_or_empty_path(__file__) == pathlib.Path(__file__).resolve()
     """
 
     if is_doctest_in_arg_string(arg_string):
