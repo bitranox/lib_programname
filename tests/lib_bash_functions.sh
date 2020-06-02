@@ -160,17 +160,13 @@ function setup_install_venv() {
   fi
 }
 
-
 function test_commandline_interface_venv() {
   # this will fail if rotek lib directory is in the path - keep this as a reminder
   my_banner "test commandline interface on virtual environment"
-  install_clean_virtual_environment
-  cd "${project_root_dir}" || exit
-  commandline_install_result=$(~/venv/bin/python3 "${project_root_dir}/setup.py" install | grep "Installing" | grep "script to")
-  clr_green "issuing command : ${commandline_install_result} -v"
-  # shellcheck disable=SC2206
-  arr_commandline_install_result=($commandline_install_result)
-  if ! "${arr_commandline_install_result[4]}/${arr_commandline_install_result[1]}" -v; then
+
+  registered_shell_command=$(python3 "${project_root_dir}/project_update.py" --get_registered_shell_command)
+  clr_green "issuing command : $HOME/venv/bin/${registered_shell_command} -v"
+  if ! "$HOME/venv/bin/${registered_shell_command}" -v; then
     my_banner_warning "test commandline interface on virtual environment ERROR"
     beep
     sleep "${sleeptime_on_error}"

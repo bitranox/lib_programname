@@ -1,7 +1,18 @@
+"""
+
+Usage:
+    project_update.py [ --get_registered_shell_command ]
+
+this module exposes no other useful functions to the commandline
+
+"""
 # stdlib
 import pathlib
 import shutil
-from typing import List
+from typing import Dict, List, Union
+
+# EXT
+from docopt import docopt   # type: ignore
 
 # OWN
 import project_conf
@@ -237,21 +248,42 @@ def create_travis_file() -> None:
         (path_base_dir / '.travis_template_wine_addon.yml').unlink()
 
 
+def main(docopt_args: Dict[str, Union[bool, str]]) -> None:
+
+    if docopt_args['--get_registered_shell_command']:
+        print(project_conf.shell_command)
+    else:
+        create_init_config_file()
+
+        # copy files from template folder to current project
+        if not is_in_own_project_folder():  # we dont want to copy if we run this in the template project itself
+            copy_project_files()
+            copy_template_files()
+
+        # create travis file
+        create_travis_file()
+
+        # create readme.rst
+        create_commandline_help_file()
+        import build_docs
+        build_docs_args = dict()
+        build_docs_args['<TRAVIS_REPO_SLUG>'] = '{}/{}'.format(project_conf.github_account, project_conf.package_name)
+        build_docs.main(build_docs_args)
+
+
+# entry point via commandline
+def main_commandline() -> None:
+    """
+    >>> main_commandline()  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    Traceback (most recent call last):
+        ...
+    docopt.DocoptExit: ...
+
+    """
+    docopt_args = docopt(__doc__)
+    main(docopt_args)       # pragma: no cover
+
+
+# entry point if main
 if __name__ == '__main__':
-
-    create_init_config_file()
-
-    # copy files from template folder to current project
-    if not is_in_own_project_folder():  # we dont want to copy if we run this in the template project itself
-        copy_project_files()
-        copy_template_files()
-
-    # create travis file
-    create_travis_file()
-
-    # create readme.rst
-    create_commandline_help_file()
-    import build_docs
-    build_docs_args = dict()
-    build_docs_args['<TRAVIS_REPO_SLUG>'] = '{}/{}'.format(project_conf.github_account, project_conf.package_name)
-    build_docs.main(build_docs_args)
+    main_commandline()

@@ -58,7 +58,7 @@ matrix:
       language: python
       python: '3.8'
       before_install:
-          - export mypy_static_typecheck="True"
+          - export mypy_strict_typecheck="True"
           - export build_docs="True"
           - export deploy_on_pypi="True"
 
@@ -98,9 +98,11 @@ install:
     - ${lib_bash_banner} "upgrading pip"; ${CMDPREFIX} ${python_command} -m pip install --upgrade pip;
     - ${lib_bash_banner} "upgrading setuptools"; ${CMDPREFIX} ${python_command} -m pip install --upgrade setuptools;
     - ${lib_bash_banner} "upgrading wheel"; ${CMDPREFIX} ${python_command} -m pip install --upgrade wheel;
-
-    - ${pip_command} install git+https://github.com/bitranox/lib_log_utils.git;
-    - ${pip_command} install git+https://github.com/bitranox/rst_include.git;
+    - ${lib_bash_banner} "upgrading pytest-pycodestyle"; ${CMDPREFIX} ${python_command} -m pip install --upgrade "pytest-pycodestyle; python_version >= \"3.5\"";
+    - ${lib_bash_banner} "installing lib_log_utils"; ${CMDPREFIX} ${python_command} -m pip install git+https://github.com/bitranox/lib_log_utils.git;
+    - if [[ ${build_docs} == "True" ]]; then
+          ${lib_bash_banner} "installing rst_include"; ${CMDPREFIX} ${python_command} -m pip install git+https://github.com/bitranox/rst_include.git;
+      fi
 
     - if [[ ${CMDPREFIX} == "wine" ]]; then ${lib_bash_wine}/001_000_install_wine.sh ; fi
     - if [[ ${CMDPREFIX} == "wine" ]]; then ${lib_bash_wine}/002_000_install_wine_machine.sh ; fi
@@ -108,108 +110,68 @@ install:
     - if [[ ${CMDPREFIX} == "wine" ]]; then ${lib_bash_wine}/004_000_install_wine_git_portable.sh ; fi
     - if [[ ${CMDPREFIX} == "wine" ]]; then ${lib_bash_wine}/005_000_install_wine_powershell_core.sh ; fi
 
-    - if [[ ${build_docs} == "True" ]]; then
-          ${lib_bash_banner} "install rst_include (Building Docs)";
-          ${CMDPREFIX} ${pip_command} install git+https://github.com/bitranox/rst_include.git;
-      fi
-
 script:
-    - if [[ -f ./setup.py ]]; then
-          ${lib_bash_banner} "Updating pytest-pycodestyle for Python Versions >= 3.5";
-          ${CMDPREFIX} ${pip_command} install --upgrade "pytest-pycodestyle; python_version >= \"3.5\"";
 
-          ${lib_bash_banner} "running 'setup.py test' - this automatically installs and uninstalls test requirements";
-          ${CMDPREFIX} ${python_command} ./setup.py test;
-              if [[ $? -eq 0 ]]; then
-                  ${lib_bash_banner} "setup.py test - OK";
-              else
-                  ${lib_bash_banner_warning} "setup.py test - FAILED";
-                  exit 1;
-              fi
+    # setup.py test
+    - COMMAND="${CMDPREFIX} ${python_command} ./setup.py test"
+    - ${lib_bash_banner} "running '${COMMAND}'";
+    - if ${COMMAND}; then ${lib_bash_banner} "'${COMMAND}' - OK"; else ${lib_bash_banner_warning} "'${COMMAND}' - FAILED" && exit 1; fi
 
-          ${lib_bash_banner} "running pip install --upgrade git+https://github.com/bitranox/lib_programname.git";
-          ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/bitranox/lib_programname.git;
-              if [[ $? -eq 0 ]]; then
-                  ${lib_bash_banner} "pip install --upgrade git+https://github.com/bitranox/lib_programname.git - OK";
-              else
-                   ${lib_bash_banner_warning} "pip install --upgrade git+https://github.com/bitranox/lib_programname.git - FAILED";
-                  exit 1;
-              fi
+    # pip install git+https://github.com/bitranox/lib_programname.git --install-option test
+    - COMMAND="${CMDPREFIX} ${python_command} -m pip install git+https://github.com/bitranox/lib_programname.git --install-option test"
+    - ${lib_bash_banner} "running '${COMMAND}'";
+    - if ${COMMAND}; then ${lib_bash_banner} "'${COMMAND}' - OK"; else ${lib_bash_banner_warning} "'${COMMAND}' - FAILED" && exit 1; fi
 
-          ${lib_bash_banner} "running pytest-codecov only";
-          ${CMDPREFIX} ${pip_command} install --upgrade -r ./requirements_test.txt;
-          ${CMDPREFIX} ${pip_command} install --upgrade codecov;
-          ${CMDPREFIX} ${pip_command} install --upgrade pytest-cov;
-          ${CMDPREFIX} ${python_command} -m pytest --cov=lib_programname;
-              if [[ $? -eq 0 ]]; then
-                  ${lib_bash_banner} "pytest - OK";
-              else
-                  ${lib_bash_banner_warning} "pytest - FAILED";
-                  exit 1;
-              fi
+    # pip install git+https://github.com/bitranox/lib_programname.git
+    - COMMAND="${CMDPREFIX} ${python_command} -m pip install git+https://github.com/bitranox/lib_programname.git"
+    - ${lib_bash_banner} "running '${COMMAND}'";
+    - if ${COMMAND}; then ${lib_bash_banner} "'${COMMAND}' - OK"; else ${lib_bash_banner_warning} "'${COMMAND}' - FAILED" && exit 1; fi
 
-          if [[ ${mypy_static_typecheck} == "True" ]]; then
-              ${lib_bash_banner} "running mypy static typechecks --strict";
-              ${CMDPREFIX} ${python_command} -m mypy -p lib_programname --strict --no-warn-unused-ignores;
-                  if [[ $? -eq 0 ]]; then
-                      ${lib_bash_banner} "mypy static typechecks --strict OK";
-                  else
-                      ${lib_bash_banner_warning} "mypy static typechecks --strict FAILED";
-                      exit 1;
-                  fi
-          else
-              ${lib_bash_banner_warning} "static typechecking disabled on this build";
-          fi
+    # commandline registration check
+    - CMDLINE_COMMAND=$(${CMDPREFIX} ${python_command} ./project_update.py --get_registered_shell_command)
+    - COMMAND="${CMDPREFIX} ${CMDLINE_COMMAND} -v"
+    - ${lib_bash_banner} "running '${COMMAND}' (check commandline registration)";
+    - if ${COMMAND}; then ${lib_bash_banner} "'${COMMAND}' - OK"; else ${lib_bash_banner_warning} "'${COMMAND}' - FAILED" && exit 1; fi
+
+    # pytest codecov only
+    - COMMAND="${CMDPREFIX} ${python_command} -m pytest --cov=lib_programname"
+    - ${lib_bash_banner} "running '${COMMAND}' - (coverage only)";
+    - ${CMDPREFIX} ${python_command} -m pip install --upgrade -r ./requirements_test.txt > /dev/null 2>&1;
+    - ${CMDPREFIX} ${python_command} -m pip install --upgrade codecov > /dev/null 2>&1;
+    - ${CMDPREFIX} ${python_command} -m pip install --upgrade pytest-cov > /dev/null 2>&1;
+    - if ${COMMAND}; then ${lib_bash_banner} "'${COMMAND}' - OK"; else ${lib_bash_banner_warning} "'${COMMAND}' - FAILED" && exit 1; fi
+
+    # mypy typecheck strict
+    - if [[ ${mypy_strict_typecheck} == "True" ]]; then
+          COMMAND="${CMDPREFIX} ${python_command} -m mypy -p lib_programname --strict --no-warn-unused-ignores"
+          ${lib_bash_banner} "running '${COMMAND}'";
+          if ${COMMAND}; then ${lib_bash_banner} "'${COMMAND}' - OK"; else ${lib_bash_banner_warning} "'${COMMAND}' - FAILED" && exit 1; fi
       else
-          ${lib_bash_banner_warning} "no setup.py found, skipping pip install with --install-option test";
-          ${lib_bash_banner_warning} "no setup.py found, skipping pip install";
-          ${lib_bash_banner_warning} "no setup.py found, skipping install pytest requirements";
-          ${lib_bash_banner_warning} "no setup.py found, skipping pytest";
-          ${lib_bash_banner_warning} "no setup.py found, skipping static typechecking";
-      fi
-
-    # Check Commandline Registration
-    - if [[ ! -z ${commandline_registration_check} ]]; then
-          ${lib_bash_banner} "Testing Commandline Registration";
-          bash -c "${commandline_registration_check}";
-          if [[ $? -eq 0 ]]; then
-              ${lib_bash_banner} "Commandline Registration - OK";
-          else
-              ${lib_bash_banner_warning} "Commandline Registration - FAILED";
-              exit 1;
-          fi
-      else
-          ${lib_bash_banner_warning} "Commandline Registration Check disabled on this build";
+          ${lib_bash_banner_warning} "mypy typecheck --strict disabled on this build";
       fi
 
     # Bild Docs
     - if [[ -f build_docs.py ]] && [[ "${build_docs}" == "True" ]]; then
-          ${lib_bash_banner} "Building Docs";
-          ${CMDPREFIX} ${python_command} build_docs.py bitranox/lib_programname;
-          if [[ $? -eq 0 ]]; then
-              ${lib_bash_banner} "Building Docs OK";
-          else
-              ${lib_bash_banner_warning} "Building Docs FAILED";
-              exit 1;
-          fi
+          COMMAND="${CMDPREFIX} ${python_command} build_docs.py bitranox/lib_programname"
+          ${lib_bash_banner} "running '${COMMAND}' - rebuild README.rst";
+          if ${COMMAND}; then ${lib_bash_banner} "'${COMMAND}' - OK"; else ${lib_bash_banner_warning} "'${COMMAND}' - FAILED" && exit 1; fi
       else
-          ${lib_bash_banner_warning} "Building Docs disabled on this build" ;
+          ${lib_bash_banner_warning} "rebuild README.rst disabled on this build" ;
       fi
 
     # Check if Deployment would work on non-tagged builds
     - if [[ -f setup.py ]] && [[ -z ${TRAVIS_TAG} ]] && [[ -f build_docs.py ]] && [[ ${build_docs} == "True" ]]; then
           ${lib_bash_banner} "Testing PyPi Deployment";
-          ${CMDPREFIX} ${pip_command} install readme_renderer > /dev/null 2>&1;
-          ${CMDPREFIX} ${pip_command} install --upgrade twine > /dev/null 2>&1;
-          ${CMDPREFIX} ${pip_command} install wheel > /dev/null 2>&1;
+          ${CMDPREFIX} ${python_command} -m pip install readme_renderer > /dev/null 2>&1;
+          ${CMDPREFIX} ${python_command} -m pip install --upgrade twine > /dev/null 2>&1;
+          ${CMDPREFIX} ${python_command} -m pip install wheel > /dev/null 2>&1;
           ${CMDPREFIX} ${python_command} setup.py sdist bdist_wheel || ${lib_bash_banner_warning} "Building Wheels failed" 1>&2;
-          ${CMDPREFIX} twine check dist/*;
-              if [[ $? -eq 0 ]]; then
-                  ${lib_bash_banner} "PyPi Deployment would be OK";
-              else
-                  ${lib_bash_banner_warning} "PyPi Deployment would fail";
-                  exit 1;
-              fi
+          if ${CMDPREFIX} twine check dist/*; then
+              ${lib_bash_banner} "PyPi Deployment would be OK";
+          else
+              ${lib_bash_banner_warning} "PyPi Deployment would fail";
+              exit 1;
+          fi
       else
           ${lib_bash_banner_warning} "Check PyPi Deployment disabled on this build" ;
       fi
@@ -230,9 +192,9 @@ after_success:
     - if [[ ${deploy_on_pypi} == "True" ]] && [[ -n ${TRAVIS_TAG} ]]; then
           ${lib_bash_banner} "Deploy on PyPi";
           export travis_deploy="True";
-          ${CMDPREFIX} ${pip_command} install readme_renderer;
-          ${CMDPREFIX} ${pip_command} install --upgrade twine;
-          ${CMDPREFIX} ${pip_command} install wheel;
+          ${CMDPREFIX} ${python_command} -m pip install readme_renderer;
+          ${CMDPREFIX} ${python_command} -m pip install --upgrade twine;
+          ${CMDPREFIX} ${python_command} -m pip install wheel;
           ${CMDPREFIX} ${python_command} setup.py sdist bdist_wheel;
           ${CMDPREFIX} twine check dist/*;
           ${CMDPREFIX} twine upload --repository-url https://upload.pypi.org/legacy/ -u bitranox -p ${pypi_password} dist/*;
