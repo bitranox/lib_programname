@@ -98,7 +98,7 @@ def get_fullpath_from_main_file() -> pathlib.Path:
     if not hasattr(sys.modules['__main__'], '__file__'):
         return empty_path
 
-    arg_string = __main__.__file__
+    arg_string = sys.modules['__main__'].__file__
     valid_executable_path = get_valid_executable_path_or_empty_path(arg_string)
     return valid_executable_path
 
