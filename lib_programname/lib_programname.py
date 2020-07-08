@@ -3,25 +3,12 @@ import inspect
 import __main__                     # type: ignore
 import pathlib
 import sys
-from typing import Dict, Union
-
-# EXT
-from docopt import docopt           # type: ignore
-
-# PROJ
-try:
-    from .__doc__ import __doc__
-    from . import __init__conf__
-except ImportError:                 # pragma: no cover
-    # imports for doctest
-    from __doc__ import __doc__     # type: ignore  # pragma: no cover
-    import __init__conf__           # type: ignore  # pragma: no cover
 
 
 empty_path = pathlib.Path()
 
 
-def get_programname_fullpath() -> pathlib.Path:
+def get_path_executed_script() -> pathlib.Path:
     """
     getting the full path of the program from which a Python module is running
 
@@ -32,7 +19,7 @@ def get_programname_fullpath() -> pathlib.Path:
     >>> __main__.__file__ = __file__
 
     >>> # Test via __main__.__file__
-    >>> assert get_programname_fullpath() == pathlib.Path(__file__).resolve()
+    >>> assert get_path_executed_script() == pathlib.Path(__file__).resolve()
 
 
     >>> ### TEST get it via sys.argv
@@ -46,7 +33,7 @@ def get_programname_fullpath() -> pathlib.Path:
     >>> sys.argv = [valid_path]
 
     >>> # Test via sys.argv
-    >>> assert get_programname_fullpath() == pathlib.Path(__file__).resolve()
+    >>> assert get_path_executed_script() == pathlib.Path(__file__).resolve()
 
 
     >>> ### TEST get it via stack
@@ -56,7 +43,7 @@ def get_programname_fullpath() -> pathlib.Path:
     >>> sys.argv = [invalid_path]
 
 
-    >>> assert get_programname_fullpath()
+    >>> assert get_path_executed_script()
 
     >>> # teardown
     >>> __main__.__file__ = save_main_file
@@ -282,46 +269,5 @@ def is_setup_test_running() -> bool:
     return False
 
 
-# we might import this module and call main from another program and pass docopt args manually
-def main(docopt_args: Dict[str, Union[bool, str]]) -> None:
-    """
-    >>> docopt_args = dict()
-    >>> docopt_args['--version'] = True
-    >>> docopt_args['--info'] = False
-    >>> main(docopt_args)   # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-    version: ...
-
-
-    >>> docopt_args['--version'] = False
-    >>> docopt_args['--info'] = True
-    >>> main(docopt_args)   # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-    information for ...
-
-    >>> docopt_args['--version'] = False
-    >>> docopt_args['--info'] = False
-    >>> main(docopt_args)
-
-
-    """
-    if docopt_args['--version']:
-        __init__conf__.print_version()
-    elif docopt_args['--info']:
-        __init__conf__.print_info()
-
-
-# entry point via commandline
-def main_commandline() -> None:
-    """
-    >>> main_commandline()  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-    Traceback (most recent call last):
-        ...
-    docopt.DocoptExit: ...
-
-    """
-    docopt_args = docopt(__doc__)
-    main(docopt_args)       # pragma: no cover
-
-
-# entry point if main
 if __name__ == '__main__':
-    main_commandline()
+    print('this is a library only, the executable is named lib_parameter_cli.py')

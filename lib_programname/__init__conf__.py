@@ -1,22 +1,20 @@
 name = 'lib_programname'
-title = 'easily find out the launched python program name'
-version = '0.1.0'
+title = 'get reliably the name of the executed script'
+version = '0.1.1'
 url = 'https://github.com/bitranox/lib_programname'
 author = 'Robert Nowotny'
-author_email = 'rnowotny1966@gmail.com'
+author_email = 'bitranox@gmail.com'
 shell_command = 'lib_programname'
 
 
-def print_version() -> None:
-    print('version: 0.1.0')
-
-
 def print_info() -> None:
-    print("""information for "lib_programname":
+    print("""\
 
-          easily find out the launched python program name
+Info for lib_programname:
 
-          Version      : 0.1.0
-          url          : https://github.com/bitranox/lib_programname
-          author       : Robert Nowotny
-          author_email : rnowotny1966@gmail.com""")
+    get reliably the name of the executed script
+
+    Version : 0.1.1
+    Url     : https://github.com/bitranox/lib_programname
+    Author  : Robert Nowotny
+    Email   : bitranox@gmail.com""")

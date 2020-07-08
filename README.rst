@@ -1,30 +1,44 @@
 lib_programname
 ===============
 
-|Pypi Status| |license| |maintenance|
+|travis_build| |license| |jupyter| |pypi|
 
-|Build Status| |Codecov Status| |Better Code| |code climate| |code climate coverage| |snyk security|
+|codecov| |better_code| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
+
+
+.. |travis_build| image:: https://img.shields.io/travis/bitranox/lib_programname/master.svg
+   :target: https://travis-ci.org/bitranox/lib_programname
 
 .. |license| image:: https://img.shields.io/github/license/webcomics/pywine.svg
    :target: http://en.wikipedia.org/wiki/MIT_License
-.. |maintenance| image:: https://img.shields.io/maintenance/yes/2021.svg
-.. |Build Status| image:: https://travis-ci.org/bitranox/lib_programname.svg?branch=master
-   :target: https://travis-ci.org/bitranox/lib_programname
+
+.. |jupyter| image:: https://mybinder.org/badge_logo.svg
+ :target: https://mybinder.org/v2/gh/bitranox/lib_programname/master?filepath=lib_programname.ipynb
+
 .. for the pypi status link note the dashes, not the underscore !
-.. |Pypi Status| image:: https://badge.fury.io/py/lib-programname.svg
+.. |pypi| image:: https://img.shields.io/pypi/status/lib-programname?label=PyPI%20Package
    :target: https://badge.fury.io/py/lib_programname
-.. |Codecov Status| image:: https://codecov.io/gh/bitranox/lib_programname/branch/master/graph/badge.svg
+
+.. |codecov| image:: https://img.shields.io/codecov/c/github/bitranox/lib_programname
    :target: https://codecov.io/gh/bitranox/lib_programname
-.. |Better Code| image:: https://bettercodehub.com/edge/badge/bitranox/lib_programname?branch=master
+
+.. |better_code| image:: https://bettercodehub.com/edge/badge/bitranox/lib_programname?branch=master
    :target: https://bettercodehub.com/results/bitranox/lib_programname
-.. |snyk security| image:: https://snyk.io/test/github/bitranox/lib_programname/badge.svg
-   :target: https://snyk.io/test/github/bitranox/lib_programname
-.. |code climate| image:: https://api.codeclimate.com/v1/badges/a177641a83f33aa78c9e/maintainability
+
+.. |cc_maintain| image:: https://img.shields.io/codeclimate/maintainability-percentage/bitranox/lib_programname?label=CC%20maintainability
    :target: https://codeclimate.com/github/bitranox/lib_programname/maintainability
    :alt: Maintainability
-.. |code climate coverage| image:: https://api.codeclimate.com/v1/badges/a177641a83f33aa78c9e/test_coverage
+
+.. |cc_issues| image:: https://img.shields.io/codeclimate/issues/bitranox/lib_programname?label=CC%20issues
+   :target: https://codeclimate.com/github/bitranox/lib_programname/maintainability
+   :alt: Maintainability
+
+.. |cc_coverage| image:: https://img.shields.io/codeclimate/coverage/bitranox/lib_programname?label=CC%20coverage
    :target: https://codeclimate.com/github/bitranox/lib_programname/test_coverage
    :alt: Code Coverage
+
+.. |snyk| image:: https://img.shields.io/snyk/vulnerabilities/github/bitranox/lib_programname
+   :target: https://snyk.io/test/github/bitranox/lib_programname
 
 Finding the name of the program from which a Python module is running can be trickier than it would seem at first, so lets make it damned easy.
 This works under pycharm, pytest, pytest-docrunner, uwsgi, dreampie etc. correctly.
@@ -32,16 +46,27 @@ This works under pycharm, pytest, pytest-docrunner, uwsgi, dreampie etc. correct
 You might dive into Dough Hellmans `article <https://doughellmann.com/blog/2012/04/30/determining-the-name-of-a-process-from-python/>`_
 about that issue.
 
-automated tests, Travis Matrix, Documentation, Badges for this Project are managed with `lib_travis_template <https://github
-.com/bitranox/lib_travis_template>`_ - check it out
+.. code-block:: python
 
-supports python 3.6-3.8, pypy3 and possibly other dialects.
-
-`100% code coverage <https://codecov.io/gh/bitranox/lib_programname>`_, mypy static type checking, tested under `Linux, macOS, Windows and Wine <https://travis-ci
-.org/bitranox/lib_programname>`_, automatic daily builds  and monitoring
+    $> python -m pip install lib_programname
+    $> python
+    >>> import lib_programname
+    >>> path_to_program = lib_programname.get_path_executed_script()    # type: pathlib.Path
 
 ----
 
+automated tests, Travis Matrix, Documentation, Badges, etc. are managed with `PizzaCutter <https://github
+.com/bitranox/PizzaCutter>`_ (cookiecutter on steroids)
+
+Python version required: 3.6.0 or newer
+
+tested on linux "bionic" with python 3.6, 3.7, 3.8, 3.8-dev, pypy3
+
+`100% code coverage <https://codecov.io/gh/bitranox/lib_programname>`_, codestyle checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://travis-ci.org/bitranox/lib_programname>`_, automatic daily builds and monitoring
+
+----
+
+- `Try it Online`_
 - `Installation and Upgrade`_
 - `Usage`_
 - `Usage from Commandline`_
@@ -56,63 +81,66 @@ supports python 3.6-3.8, pypy3 and possibly other dialects.
 
 ----
 
+Try it Online
+-------------
+
+You might try it right away in Jupyter Notebook by using the "launch binder" badge, or click `here <https://mybinder.org/v2/gh/{{rst_include.
+repository_slug}}/master?filepath=lib_programname.ipynb>`_
+
 Installation and Upgrade
 ------------------------
 
-Before You start, its highly recommended to update pip and setup tools:
+- Before You start, its highly recommended to update pip and setup tools:
 
 
 .. code-block:: bash
 
-    python3 -m pip --upgrade pip
-    python3 -m pip --upgrade setuptools
-    python3 -m pip --upgrade wheel
+    python -m pip --upgrade pip
+    python -m pip --upgrade setuptools
+    python -m pip --upgrade wheel
 
-
-install latest version with pip (recommended):
+- to install the latest release from PyPi via pip (recommended):
 
 .. code-block:: bash
 
-    # upgrade all dependencies regardless of version number (PREFERRED)
-    python3 -m pip install --upgrade git+https://github.com/bitranox/lib_programname.git --upgrade-strategy eager
+    # install latest release from PyPi
+    python -m pip install --upgrade lib_programname
 
-    # test without installing (can be skipped)
-    python3 -m pip install git+https://github.com/bitranox/lib_programname.git --install-option test
+    # test latest release from PyPi without installing (can be skipped)
+    python -m pip install lib_programname --install-option test
+
+- to install the latest development version from github via pip:
+
+
+.. code-block:: bash
 
     # normal install
-    python3 -m pip install --upgrade git+https://github.com/bitranox/lib_programname.git
+    python -m pip install --upgrade git+https://github.com/bitranox/lib_programname.git
+
+    # to test without installing (can be skipped)
+    python -m pip install git+https://github.com/bitranox/lib_programname.git --install-option test
+
+    # to install and upgrade all dependencies regardless of version number
+    python -m pip install --upgrade git+https://github.com/bitranox/lib_programname.git --upgrade-strategy eager
 
 
-install latest pypi Release (if there is any):
-
-.. code-block:: bash
-
-    # latest Release from pypi
-    python3 -m pip install --upgrade lib_programname
-
-    # test without installing (can be skipped)
-    python3 -m pip install lib_programname --install-option test
-
-    # normal install
-    python3 -m pip install --upgrade lib_programname
-
-
-
-include it into Your requirements.txt:
+- include it into Your requirements.txt:
 
 .. code-block:: bash
 
     # Insert following line in Your requirements.txt:
-    # for the latest Release on pypi (if any):
+    # for the latest Release on pypi:
     lib_programname
-    # for the latest Development Version :
+
+    # for the latest development version :
     lib_programname @ git+https://github.com/bitranox/lib_programname.git
 
     # to install and upgrade all modules mentioned in requirements.txt:
-    python3 -m pip install --upgrade -r /<path>/requirements.txt
+    python -m pip install --upgrade -r /<path>/requirements.txt
 
 
-Install from source code:
+
+- to install the latest development version from source code:
 
 .. code-block:: bash
 
@@ -120,17 +148,15 @@ Install from source code:
     $ git clone https://github.com/bitranox/lib_programname.git
     $ cd lib_programname
 
-    # test without installing (can be skipped)
-    python3 setup.py test
+    # to test without installing (can be skipped)
+    python setup.py test
 
     # normal install
-    python3 setup.py install
+    python setup.py install
 
-
-via makefile:
-
-if You are on linux, makefiles are a very convenient way to install. Here we can do much more, like installing virtual environment, clean caches and so on.
-This is still in development and not recommended / working at the moment:
+- via makefile:
+  makefiles are a very convenient way to install. Here we can do much more,
+  like installing virtual environments, clean caches and so on.
 
 .. code-block:: shell
 
@@ -157,22 +183,23 @@ Usage
 
     import lib_programname
     # this returns the fully resolved path to the launched python program
-    path_to_program = lib_programname.get_programname_fullpath()    # type: pathlib.Path
+    path_to_program = lib_programname.get_path_executed_script()    # type: pathlib.Path
 
 Usage from Commandline
 ------------------------
 
 .. code-block:: bash
 
-   Usage:
-       lib_programname (-h | -v | -i)
+   Usage: lib_programname [OPTIONS] COMMAND [ARGS]...
+
+     get reliably the name of the executed script
 
    Options:
-       -h, --help          show help
-       -v, --version       show version
-       -i, --info          show Info
+     --version   Show the version and exit.
+     -h, --help  Show this message and exit.
 
-   this module exposes no other useful functions to the commandline
+   Commands:
+     info  get program informations
 
 Requirements
 ------------
@@ -181,13 +208,12 @@ following modules will be automatically installed :
 .. code-block:: bash
 
     ## Project Requirements
-    docopt
+    click
 
 Acknowledgements
 ----------------
 
 - special thanks to "uncle bob" Robert C. Martin, especially for his books on "clean code" and "clean architecture"
-- thanks to Dough Hellman for his `article <https://doughellmann.com/blog/2012/04/30/determining-the-name-of-a-process-from-python/>`_ about that issue
 
 Contribute
 ----------
@@ -204,6 +230,18 @@ This software is licensed under the `MIT license <http://en.wikipedia.org/wiki/M
 
 Changelog
 =========
+
+- new MAJOR version for incompatible API changes,
+- new MINOR version for added functionality in a backwards compatible manner
+- new PATCH version for backwards compatible bug fixes
+
+
+0.1.1
+-----
+2020-07-08 : patch release
+    - new click cli
+    - use PizzaCutter Template
+    - added jupyter notebook
 
 0.1.0
 -----
