@@ -195,8 +195,9 @@ Usage from Commandline
      get reliably the name of the executed script
 
    Options:
-     --version   Show the version and exit.
-     -h, --help  Show this message and exit.
+     --version                     Show the version and exit.
+     --traceback / --no-traceback  return traceback information on cli
+     -h, --help                    Show this message and exit.
 
    Commands:
      info  get program informations
@@ -240,8 +241,9 @@ tasks:
 
 0.1.2
 -----
-2020-xx-xx: development
-    -
+2020-07-16: feature release
+    - fix cli test
+    - enable traceback option on cli errors
 
 0.1.1
 -----

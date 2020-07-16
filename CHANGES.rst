@@ -10,8 +10,9 @@ tasks:
 
 0.1.2
 -----
-2020-xx-xx: development
-    -
+2020-07-16: feature release
+    - fix cli test
+    - enable traceback option on cli errors
 
 0.1.1
 -----
