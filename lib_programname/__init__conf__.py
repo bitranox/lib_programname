@@ -1,6 +1,6 @@
 name = 'lib_programname'
 title = 'get reliably the name of the executed script'
-version = '0.1.1'
+version = '0.1.2'
 url = 'https://github.com/bitranox/lib_programname'
 author = 'Robert Nowotny'
 author_email = 'bitranox@gmail.com'
@@ -14,7 +14,7 @@ Info for lib_programname:
 
     get reliably the name of the executed script
 
-    Version : 0.1.1
+    Version : 0.1.2
     Url     : https://github.com/bitranox/lib_programname
     Author  : Robert Nowotny
     Email   : bitranox@gmail.com""")
