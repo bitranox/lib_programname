@@ -83,7 +83,7 @@ if is_travis_deploy() and is_tagged_commit():
 
 setup_kwargs: Dict[str, Any] = dict()
 setup_kwargs['name'] = 'lib_programname'
-setup_kwargs['version'] = '0.1.2'
+setup_kwargs['version'] = '0.1.3'
 setup_kwargs['url'] = 'https://github.com/bitranox/lib_programname'
 setup_kwargs['packages'] = find_packages()
 setup_kwargs['package_data'] = {'lib_programname': ['py.typed', '*.pyi', '__init__.pyi']}
