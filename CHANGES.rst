@@ -8,6 +8,12 @@ Changelog
 tasks:
     - python 3.9 changes, __main__ should be now absolut path - check it
 
+0.1.3
+-----
+2020-07-29: feature release
+    - use the new pizzacutter template
+
+
 0.1.2
 -----
 2020-07-16: feature release

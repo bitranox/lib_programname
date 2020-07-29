@@ -1,3 +1,7 @@
+Version 0.1.3 as of 2020-07-29, see changelog_
+
+=======================================================
+
 lib_programname
 ===============
 
@@ -67,9 +71,9 @@ tested on linux "bionic" with python 3.6, 3.7, 3.8, 3.8-dev, pypy3
 ----
 
 - `Try it Online`_
-- `Installation and Upgrade`_
 - `Usage`_
 - `Usage from Commandline`_
+- `Installation and Upgrade`_
 - `Requirements`_
 - `Acknowledgements`_
 - `Contribute`_
@@ -86,6 +90,32 @@ Try it Online
 
 You might try it right away in Jupyter Notebook by using the "launch binder" badge, or click `here <https://mybinder.org/v2/gh/{{rst_include.
 repository_slug}}/master?filepath=lib_programname.ipynb>`_
+
+Usage
+-----------
+
+.. code-block:: py
+
+    import lib_programname
+    # this returns the fully resolved path to the launched python program
+    path_to_program = lib_programname.get_path_executed_script()    # type: pathlib.Path
+
+Usage from Commandline
+------------------------
+
+.. code-block:: bash
+
+   Usage: lib_programname [OPTIONS] COMMAND [ARGS]...
+
+     get reliably the name of the executed script
+
+   Options:
+     --version                     Show the version and exit.
+     --traceback / --no-traceback  return traceback information on cli
+     -h, --help                    Show this message and exit.
+
+   Commands:
+     info  get program informations
 
 Installation and Upgrade
 ------------------------
@@ -176,32 +206,6 @@ Installation and Upgrade
     # uninstall the package
     $ make uninstall
 
-Usage
------------
-
-.. code-block:: py
-
-    import lib_programname
-    # this returns the fully resolved path to the launched python program
-    path_to_program = lib_programname.get_path_executed_script()    # type: pathlib.Path
-
-Usage from Commandline
-------------------------
-
-.. code-block:: bash
-
-   Usage: lib_programname [OPTIONS] COMMAND [ARGS]...
-
-     get reliably the name of the executed script
-
-   Options:
-     --version                     Show the version and exit.
-     --traceback / --no-traceback  return traceback information on cli
-     -h, --help                    Show this message and exit.
-
-   Commands:
-     info  get program informations
-
 Requirements
 ------------
 following modules will be automatically installed :
@@ -210,6 +214,7 @@ following modules will be automatically installed :
 
     ## Project Requirements
     click
+    cli_exit_tools @ git+https://github.com/bitranox/cli_exit_tools.git
 
 Acknowledgements
 ----------------
@@ -238,6 +243,12 @@ Changelog
 
 tasks:
     - python 3.9 changes, __main__ should be now absolut path - check it
+
+0.1.3
+-----
+2020-07-29: feature release
+    - use the new pizzacutter template
+
 
 0.1.2
 -----

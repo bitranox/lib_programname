@@ -2,6 +2,9 @@
 import sys
 from typing import Optional
 
+# OWN
+import cli_exit_tools
+
 # EXT
 import click
 
@@ -10,12 +13,10 @@ CLICK_CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 try:
     from . import __init__conf__
-    from . import cli_exit_tools
     from . import lib_programname
 except (ImportError, ModuleNotFoundError):  # pragma: no cover
     # imports for doctest
     import __init__conf__                   # type: ignore  # pragma: no cover
-    import cli_exit_tools                   # type: ignore  # pragma: no cover
     import lib_programname      # type: ignore  # pragma: no cover
 
 
@@ -51,3 +52,5 @@ if __name__ == '__main__':
     except Exception as exc:
         cli_exit_tools.print_exception_message()
         sys.exit(cli_exit_tools.get_system_exit_code(exc))
+    finally:
+        cli_exit_tools.flush_streams()
