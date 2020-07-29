@@ -13,6 +13,10 @@ env:
         - cPIP="python -m pip"
         # switch off wine fix me messages
         - WINEDEBUG=fixme-all
+        # mypy path
+        - MYPYPATH="./lib_programname/3rd_party_stubs"
+        # package name
+        - PACKAGE_NAME="lib_programname"
         # the registered CLI Command
         - CLI_COMMAND=lib_programname
         # the source file for rst_include (rebuild rst file includes)
