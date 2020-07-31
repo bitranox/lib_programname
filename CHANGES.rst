@@ -9,5 +9,6 @@ tasks:
     - python 3.9 changes, __main__ should be now absolut path - check it
 
 
-1.1.5
+v1.1.5
+--------
 2020-07-31: initial release
