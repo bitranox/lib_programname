@@ -1,4 +1,4 @@
-Version 0.1.4a0 as of 2020-07-29, see changelog_
+Version 1.1.5 as of 2020-07-31, see changelog_
 
 =======================================================
 
@@ -245,31 +245,6 @@ tasks:
     - python 3.9 changes, __main__ should be now absolut path - check it
 
 
-0.1.4a0
--------
-2020-07-29: development
-
-
-0.1.3
------
-2020-07-29: feature release
-    - use the new pizzacutter template
-
-
-0.1.2
------
-2020-07-16: feature release
-    - fix cli test
-    - enable traceback option on cli errors
-
-0.1.1
------
-2020-07-08 : patch release
-    - new click cli
-    - use PizzaCutter Template
-    - added jupyter notebook
-
-0.1.0
------
-2020-05-15: Initial public release
+1.1.5
+2020-07-31: initial release
 
