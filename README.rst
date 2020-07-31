@@ -1,4 +1,4 @@
-Version 0.1.3 as of 2020-07-29, see changelog_
+Version 0.1.4a0 as of 2020-07-29, see changelog_
 
 =======================================================
 
@@ -243,6 +243,12 @@ Changelog
 
 tasks:
     - python 3.9 changes, __main__ should be now absolut path - check it
+
+
+0.1.4a0
+-------
+2020-07-29: development
+
 
 0.1.3
 -----
