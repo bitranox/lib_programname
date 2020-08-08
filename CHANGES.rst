@@ -8,6 +8,14 @@ Changelog
 tasks:
     - python 3.9 changes, __main__ should be now absolut path - check it
 
+v1.1.7
+--------
+2020-08-08: service release
+    - fix documentation
+    - fix travis
+    - deprecate pycodestyle
+    - implement flake8
+
 v1.1.6
 ---------
 2020-08-01: fix pypi deploy
