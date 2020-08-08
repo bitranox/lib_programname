@@ -4,6 +4,7 @@ import __main__                     # type: ignore
 import pathlib
 import sys
 
+__all__ = ["get_path_executed_script"]
 
 empty_path = pathlib.Path()
 

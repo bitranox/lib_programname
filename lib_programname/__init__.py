@@ -1,4 +1,3 @@
-__all__ = ["get_path_executed_script"]
 from .lib_programname import *
 
 # imports from __init__conf__ should happen after Your imports
