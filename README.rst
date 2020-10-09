@@ -2,7 +2,7 @@ lib_programname
 ===============
 
 
-Version v1.1.7 as of 2020-08-08 see `Changelog`_
+Version v1.1.8 as of 2020-10-09 see `Changelog`_
 
 |travis_build| |license| |jupyter| |pypi|
 
@@ -43,6 +43,9 @@ Version v1.1.7 as of 2020-08-08 see `Changelog`_
 .. |snyk| image:: https://img.shields.io/snyk/vulnerabilities/github/bitranox/lib_programname
    :target: https://snyk.io/test/github/bitranox/lib_programname
 
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
+
 Finding the name of the program from which a Python module is running can be trickier than it would seem at first, so lets make it damned easy.
 This works under pycharm, pytest, pytest-docrunner, uwsgi, dreampie etc. correctly.
 
@@ -63,7 +66,7 @@ automated tests, Travis Matrix, Documentation, Badges, etc. are managed with `Pi
 
 Python version required: 3.6.0 or newer
 
-tested on linux "bionic" with python 3.6, 3.7, 3.8, 3.8-dev, pypy3 - architectures: amd64, ppc64le, s390x, arm64
+tested on linux "bionic" with python 3.6, 3.7, 3.8, 3.9-dev, pypy3 - architectures: amd64, ppc64le, s390x, arm64
 
 `100% code coverage <https://codecov.io/gh/bitranox/lib_programname>`_, flake8 style checking ,mypy static type checking ,tested under `Linux, macOS, Windows <https://travis-ci.org/bitranox/lib_programname>`_, automatic daily builds and monitoring
 
@@ -224,6 +227,12 @@ Changelog
 
 tasks:
     - python 3.9 changes, __main__ should be now absolut path - check it
+
+v1.1.8
+--------
+2020-10-09: service release
+    - update travis build matrix for linux 3.9-dev
+    - update travis build matrix (paths) for windows 3.9 / 3.10
 
 v1.1.7
 --------
