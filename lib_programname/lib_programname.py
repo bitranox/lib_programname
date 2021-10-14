@@ -1,6 +1,6 @@
 # STDLIB
 import inspect
-import __main__                     # type: ignore
+import __main__     # noqa
 import pathlib
 import sys
 
