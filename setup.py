@@ -55,9 +55,7 @@ def get_requirements_from_file(requirements_filename: str) -> List[str]:
     """
     l_requirements = list()
     try:
-        with open(
-            str(pathlib.Path(__file__).parent / requirements_filename), mode="r"
-        ) as requirements_file:
+        with open(str(pathlib.Path(__file__).parent / requirements_filename), mode="r") as requirements_file:
             for line in requirements_file:
                 line_data = get_line_data(line)
                 if line_data:
@@ -86,12 +84,10 @@ if is_travis_deploy() and is_tagged_commit():
 
 setup_kwargs: Dict[str, Any] = dict()
 setup_kwargs["name"] = "lib_programname"
-setup_kwargs["version"] = "v1.1.8"
+setup_kwargs["version"] = "v1.2.0"
 setup_kwargs["url"] = "https://github.com/bitranox/lib_programname"
 setup_kwargs["packages"] = find_packages()
-setup_kwargs["package_data"] = {
-    "lib_programname": ["py.typed", "*.pyi", "__init__.pyi"]
-}
+setup_kwargs["package_data"] = {"lib_programname": ["py.typed", "*.pyi", "__init__.pyi"]}
 setup_kwargs["description"] = "get reliably the name of the executed script"
 setup_kwargs["long_description"] = long_description
 setup_kwargs["long_description_content_type"] = "text/x-rst"
@@ -106,11 +102,7 @@ setup_kwargs["classifiers"] = [
     "Programming Language :: Python",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-setup_kwargs["entry_points"] = {
-    "console_scripts": [
-        "lib_programname = lib_programname.lib_programname_cli:cli_main"
-    ]
-}
+setup_kwargs["entry_points"] = {"console_scripts": ["lib_programname = lib_programname.lib_programname_cli:cli_main"]}
 # minimally needs to run tests - no project requirements here
 setup_kwargs["tests_require"] = tests_require
 # specify what a project minimally needs to run correctly

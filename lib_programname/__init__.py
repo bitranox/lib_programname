@@ -1,3 +1,9 @@
+# detect test environment and add path for local testing
+# this should be the first import in __init__.py
+from lib_detect_testenv import *
+if is_testenv_active():
+    add_path_to_syspath(__file__)
+
 from .lib_programname import *
 
 # imports from __init__conf__ should happen after Your imports

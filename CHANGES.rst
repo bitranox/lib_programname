@@ -5,8 +5,13 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
-tasks:
-    - python 3.9 changes, __main__ should be now absolut path - check it
+
+v1.2.0
+--------
+2021-11-22: Minor Release
+    - implement github actions
+    - deduplicate code, added lib_detect_testenv as dependency
+    - deleted functions which reside now in lib_detect_testenv
 
 v1.1.8
 --------
