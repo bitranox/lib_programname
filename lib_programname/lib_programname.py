@@ -1,6 +1,6 @@
 # STDLIB
 import inspect
-import __main__     # noqa
+import __main__  # noqa
 import pathlib
 import sys
 
@@ -71,11 +71,11 @@ def get_path_executed_script() -> pathlib.Path:
     if path_candidate != empty_path:
         return path_candidate
 
-    raise RuntimeError('can not determine the path of the launched program')    # pragma: no cover
+    raise RuntimeError("can not determine the path of the launched program")  # pragma: no cover
 
 
 def get_fullpath_from_main_file() -> pathlib.Path:
-    """ try to get it from __main__.__file__ - does not work under pytest, doctest
+    """try to get it from __main__.__file__ - does not work under pytest, doctest
 
     >>> if lib_detect_testenv.is_testenv_active(): assert get_fullpath_from_main_file() == empty_path
     >>> if lib_detect_testenv.is_setup_test_running(): assert get_fullpath_from_main_file() != empty_path
@@ -87,16 +87,16 @@ def get_fullpath_from_main_file() -> pathlib.Path:
     >>> setattr(__main__, '__file__', save_main_file)
 
     """
-    if not hasattr(sys.modules['__main__'], '__file__'):
+    if not hasattr(sys.modules["__main__"], "__file__"):
         return empty_path
 
-    arg_string = sys.modules['__main__'].__file__
+    arg_string = sys.modules["__main__"].__file__
     valid_executable_path = get_valid_executable_path_or_empty_path(arg_string)
     return valid_executable_path
 
 
 def get_fullpath_from_sys_argv() -> pathlib.Path:
-    """ try to get it from sys_argv - does not work when loaded from uwsgi, works in eclipse and pydev
+    """try to get it from sys_argv - does not work when loaded from uwsgi, works in eclipse and pydev
 
     >>> if lib_detect_testenv.is_doctest_active():
     ...     assert get_fullpath_from_sys_argv() == pathlib.Path(__file__).resolve()
@@ -131,7 +131,7 @@ def get_fullpath_from_sys_argv() -> pathlib.Path:
 
 
 def get_fullpath_from_stack() -> pathlib.Path:
-    """ try to get it from stack, works under dreampie
+    """try to get it from stack, works under dreampie
 
     >>> assert get_fullpath_from_stack() == pathlib.Path(__file__).resolve()
 
@@ -142,12 +142,12 @@ def get_fullpath_from_stack() -> pathlib.Path:
         try:
             arg_string = inspect.stack()[levels_back][1]
             valid_executable_path = get_valid_executable_path_or_empty_path(arg_string)
-            if valid_executable_path != empty_path:             # pragma: no cover     # its hard to tamper around with the stack, therefore we dont cover it
+            if valid_executable_path != empty_path:  # pragma: no cover     # its hard to tamper around with the stack, therefore we dont cover it
                 return valid_executable_path
-            levels_back += 1                                    # pragma: no cover
-        except IndexError:                                      # pragma: no cover
-            break                                               # pragma: no cover
-    return empty_path                                           # pragma: no cover
+            levels_back += 1  # pragma: no cover
+        except IndexError:  # pragma: no cover
+            break  # pragma: no cover
+    return empty_path  # pragma: no cover
 
 
 def get_valid_executable_path_or_empty_path(arg_string: str) -> pathlib.Path:
@@ -164,7 +164,7 @@ def get_valid_executable_path_or_empty_path(arg_string: str) -> pathlib.Path:
     arg_string = add_python_extension_if_not_there(arg_string)
     path = pathlib.Path(arg_string)
     if path.is_file():
-        path = path.resolve()   # .resolve does not work on a non existing file in python 3.5
+        path = path.resolve()  # .resolve does not work on a non existing file in python 3.5
         return path
     else:
         return empty_path
@@ -180,7 +180,7 @@ def remove_doctest_and_docrunner_parameters(arg_string: str) -> str:
     >>> assert remove_doctest_and_docrunner_parameters(arg_string_with_parameter) == __file__
     >>> assert remove_doctest_and_docrunner_parameters(arg_string_without_parameter) == __file__
     """
-    path = arg_string.split('::', 1)[0]
+    path = arg_string.split("::", 1)[0]
     return path
 
 
@@ -197,10 +197,10 @@ def add_python_extension_if_not_there(arg_string: str) -> str:
 
     """
 
-    if not arg_string.endswith('.py'):
-        arg_string = arg_string + '.py'
+    if not arg_string.endswith(".py"):
+        arg_string = arg_string + ".py"
     return arg_string
 
 
-if __name__ == '__main__':
-    print('this is a library only, the executable is named lib_parameter_cli.py')
+if __name__ == "__main__":
+    print("this is a library only, the executable is named lib_parameter_cli.py")

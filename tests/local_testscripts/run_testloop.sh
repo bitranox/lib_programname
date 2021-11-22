@@ -13,7 +13,7 @@ project_root_dir="${project_root_dir}"
 DO_FLAKE8_TESTS="True"
 DO_MYPY_TESTS="True"
 DO_PYTEST="True"
-DO_BLACK="False"
+DO_BLACK="True"
 # cleanup on cntrl-c
 trap cleanup EXIT
 
