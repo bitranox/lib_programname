@@ -6,6 +6,11 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
+v1.2.1b
+--------
+work in progress
+    - fix "setup.py test"
+
 v1.2.0
 --------
 2021-11-22: Minor Release

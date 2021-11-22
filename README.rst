@@ -2,7 +2,7 @@ lib_programname
 ===============
 
 
-Version v1.2.0 as of 2021-11-22 see `Changelog`_
+Version v1.2.1b as of 2021-11-22 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi| |black|
 
@@ -18,7 +18,7 @@ Version v1.2.0 as of 2021-11-22 see `Changelog`_
    :target: http://en.wikipedia.org/wiki/MIT_License
 
 .. |jupyter| image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/bitranox/lib_programname/master?filepath=lib_programname.ipynb
+   :target: https://mybinder.org/v2/gh/bitranox/lib_programname/master?filepath=lib_programname.ipynb
 
 .. for the pypi status link note the dashes, not the underscore !
 .. |pypi| image:: https://img.shields.io/pypi/status/lib-programname?label=PyPI%20Package
@@ -228,6 +228,11 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
+
+v1.2.1b
+--------
+work in progress
+    - fix "setup.py test"
 
 v1.2.0
 --------

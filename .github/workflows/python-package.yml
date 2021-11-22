@@ -81,6 +81,11 @@ jobs:
               DEPLOY_WHEEL: "False"
               DEPLOY_TEST: "False"
               MYPY_DO_TESTS: "True"
+              # Setup tests
+              DO_SETUP_INSTALL: "True"
+              DO_SETUP_INSTALL_TEST: "True"
+              # Test registered CLI Command
+              DO_CLI_TEST: "True"
 
 
           - os: ubuntu-latest
@@ -91,6 +96,9 @@ jobs:
               DEPLOY_WHEEL: "True"
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "True"
+              DO_SETUP_INSTALL: "True"
+              DO_SETUP_INSTALL_TEST: "False"
+              DO_CLI_TEST: "True"
 
           - os: ubuntu-latest
             python-version: "3.7"
@@ -100,6 +108,9 @@ jobs:
               DEPLOY_WHEEL: "True"
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "True"
+              DO_SETUP_INSTALL: "True"
+              DO_SETUP_INSTALL_TEST: "False"
+              DO_CLI_TEST: "True"
 
           - os: ubuntu-latest
             python-version: "3.8"
@@ -109,6 +120,9 @@ jobs:
               DEPLOY_WHEEL: "True"
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "True"
+              DO_SETUP_INSTALL: "True"
+              DO_SETUP_INSTALL_TEST: "False"
+              DO_CLI_TEST: "True"
 
           - os: ubuntu-latest
             python-version: "3.9"
@@ -118,6 +132,9 @@ jobs:
               DEPLOY_WHEEL: "True"
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "True"
+              DO_SETUP_INSTALL: "True"
+              DO_SETUP_INSTALL_TEST: "False"
+              DO_CLI_TEST: "True"
 
           - os: ubuntu-latest
             python-version: "3.10.0"
@@ -127,6 +144,9 @@ jobs:
               DEPLOY_WHEEL: "True"
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "True"
+              DO_SETUP_INSTALL: "True"
+              DO_SETUP_INSTALL_TEST: "True"
+              DO_CLI_TEST: "True"
 
           - os: ubuntu-latest
             python-version: "pypy-3.8"
@@ -136,6 +156,9 @@ jobs:
               DEPLOY_WHEEL: "True"
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "False"
+              DO_SETUP_INSTALL: "True"
+              DO_SETUP_INSTALL_TEST: "False"
+              DO_CLI_TEST: "True"
 
           - os: macos-latest
             python-version: 3.9
@@ -148,6 +171,11 @@ jobs:
               DEPLOY_WHEEL: "True"
               DEPLOY_TEST: "True"
               MYPY_DO_TESTS: "True"
+              # Setup tests
+              DO_SETUP_INSTALL: "True"
+              DO_SETUP_INSTALL_TEST: "True"
+              # Test registered CLI Command
+              DO_CLI_TEST: "True"
 
 
     name: "${{ matrix.os }} Python ${{ matrix.python-version }}"
@@ -169,13 +197,12 @@ jobs:
         ${{ env.cPIP }} install git+https://github.com/bitranox/lib_cicd_github.git
         lib_cicd_github install
 
-    - name: Debug - Show Colortest and Environment Variable
+    - name: Debug - printenv and colortest
       env:
         # make matrix env variables accessible
         ${{ matrix.env }}
       shell: bash
       run: |
-        log_util --colortest
         # export for current step
         export "BRANCH=$(lib_cicd_github get_branch)"
         # export for subsequent steps
@@ -193,6 +220,7 @@ jobs:
         log_util --level=VERBOSE "runner.os: ${{ runner.os }}"
         log_util --level=VERBOSE "matrix.python-version: ${{ matrix.python-version }}"
         printenv
+        log_util --colortest
 
     - name: Run Tests
       env:
