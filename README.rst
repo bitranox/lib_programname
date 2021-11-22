@@ -1,8 +1,6 @@
 lib_programname
 ===============
 
-
-
 Version v1.2.0 as of 2021-11-22 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi| |black|
