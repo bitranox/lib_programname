@@ -190,13 +190,14 @@ function setup_install_venv() {
   fi
 }
 
-function setup_install_test_venv() {
+
+function setup_test_venv() {
   if test -f "${project_root_dir}/setup.py"; then
-    my_banner "setup.py install test on virtual environment"
+    my_banner "setup.py test on virtual environment"
     install_clean_virtual_environment
     cd "${project_root_dir}" || exit
-    if ! ~/venv/bin/python3 "${project_root_dir}/setup.py" install test; then
-      my_banner_warning "setup.py install test ERROR"
+    if ! ~/venv/bin/python3 "${project_root_dir}/setup.py" test; then
+      my_banner_warning "setup.py test ERROR"
       beep
       sleep "${sleeptime_on_error}"
       return 1

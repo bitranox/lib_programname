@@ -103,7 +103,7 @@ def get_fullpath_from_sys_argv() -> pathlib.Path:
     >>> if lib_detect_testenv.is_pytest_active():
     ...     assert get_fullpath_from_sys_argv() == pathlib.Path()
     >>> if lib_detect_testenv.is_setup_test_running():
-    ...     get_fullpath_from_sys_argv()
+    ...     assert get_fullpath_from_sys_argv() != pathlib.Path(__file__).resolve()
 
 
     >>> # force test invalid sys.path
