@@ -1,6 +1,7 @@
 lib_programname
 ===============
 
+
 Version v1.2.0 as of 2021-11-22 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi| |black|
@@ -50,7 +51,7 @@ Version v1.2.0 as of 2021-11-22 see `Changelog`_
 Finding the name of the program from which a Python module is running can be trickier than it would seem at first, so lets make it damned easy.
 This works under pycharm, pytest, pytest-docrunner, uwsgi, dreampie etc. correctly.
 
-You might dive into Dough Hellmans `article <https://doughellmann.com/blog/2012/04/30/determining-the-name-of-a-process-from-python/>`_
+You might dive into Dough Hellmans `article <https://doughellmann.com/posts/determining-the-name-of-a-process-from-python/>`_
 about that issue.
 
 .. code-block:: python
