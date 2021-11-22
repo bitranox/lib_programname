@@ -194,7 +194,6 @@ def add_python_extension_if_not_there(arg_string: str) -> str:
     >>> assert add_python_extension_if_not_there(arg_string_with_py) == __file__
     >>> assert add_python_extension_if_not_there(arg_string_without_py) == __file__
 
-
     """
 
     if not arg_string.endswith(".py"):
