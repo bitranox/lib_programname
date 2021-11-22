@@ -45,6 +45,7 @@ function pytest_loop {
 
         # if ! install_pip_requirements_venv; then continue; fi
         # if ! test_setup_test_venv; then continue; fi
+        if ! setup_install_test_venv; then continue; fi
         if ! setup_install_venv; then continue; fi
         if ! test_commandline_interface_venv; then continue; fi
 

@@ -98,10 +98,13 @@ def get_fullpath_from_main_file() -> pathlib.Path:
 def get_fullpath_from_sys_argv() -> pathlib.Path:
     """ try to get it from sys_argv - does not work when loaded from uwsgi, works in eclipse and pydev
 
-    >>> if (not lib_detect_testenv.is_pytest_active()) and lib_detect_testenv.is_testenv_active():
+    >>> if lib_detect_testenv.is_doctest_active():
     ...     assert get_fullpath_from_sys_argv() == pathlib.Path(__file__).resolve()
-    >>> if not lib_detect_testenv.is_doctest_active():
-    ...     assert get_fullpath_from_sys_argv() != pathlib.Path()
+    >>> if lib_detect_testenv.is_pytest_active():
+    ...     assert get_fullpath_from_sys_argv() == pathlib.Path()
+    >>> if lib_detect_testenv.is_setup_test_running():
+    ...     get_fullpath_from_sys_argv()
+
 
     >>> # force test invalid sys.path
     >>> save_sys_argv = list(sys.argv)
