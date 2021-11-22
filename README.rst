@@ -10,8 +10,8 @@ Version v1.2.0 as of 2021-11-22 see `Changelog`_
 
 
 
-.. |build_badge| image:: https://github.com/bitranox/lib_programname/actions/workflows/python-tests.yml/badge.svg
-   :target: https://github.com/bitranox/lib_programname/actions/workflows/python-tests.yml
+.. |build_badge| image:: https://github.com/bitranox/lib_programname/actions/workflows/python-package.yml/badge.svg
+   :target: https://github.com/bitranox/lib_programname/actions/workflows/python-package.yml
 
 
 .. |license| image:: https://img.shields.io/github/license/webcomics/pywine.svg
