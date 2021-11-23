@@ -77,8 +77,8 @@ def get_path_executed_script() -> pathlib.Path:
 def get_fullpath_from_main_file() -> pathlib.Path:
     """try to get it from __main__.__file__ - does not work under pytest, doctest
 
-    >>> if lib_detect_testenv.is_testenv_active(): assert get_fullpath_from_main_file() == empty_path
-    >>> if lib_detect_testenv.is_setup_test_running(): assert get_fullpath_from_main_file() != empty_path
+    >>> if lib_detect_testenv.is_doctest_active(): assert get_fullpath_from_main_file() == empty_path
+    >>> if lib_detect_testenv.is_setup_active(): assert get_fullpath_from_main_file() != empty_path
 
     >>> # test no attrib __main__.__file__
     >>> save_main_file = str(__main__.__file__)
@@ -98,13 +98,10 @@ def get_fullpath_from_main_file() -> pathlib.Path:
 def get_fullpath_from_sys_argv() -> pathlib.Path:
     """try to get it from sys_argv - does not work when loaded from uwsgi, works in eclipse and pydev
 
-    >>> if lib_detect_testenv.is_doctest_active():
+    >>> # if (not is_pytest_main_in_sys_argv()) and is_doctest_running(): assert get_fullpath_from_sys_argv() == pathlib.Path(__file__).resolve()
+    >>> if lib_detect_testenv.is_doctest_active() and not lib_detect_testenv.is_pytest_active():
     ...     assert get_fullpath_from_sys_argv() == pathlib.Path(__file__).resolve()
-    >>> if lib_detect_testenv.is_pytest_active():
-    ...     assert get_fullpath_from_sys_argv() == pathlib.Path()
-    >>> if lib_detect_testenv.is_setup_test_running():
-    ...     assert get_fullpath_from_sys_argv() != pathlib.Path(__file__).resolve()
-
+    >>> if not lib_detect_testenv.is_doctest_active(): assert get_fullpath_from_sys_argv() != pathlib.Path()
 
     >>> # force test invalid sys.path
     >>> save_sys_argv = list(sys.argv)
@@ -152,12 +149,12 @@ def get_fullpath_from_stack() -> pathlib.Path:
 
 def get_valid_executable_path_or_empty_path(arg_string: str) -> pathlib.Path:
     """
-    >>> if lib_detect_testenv.is_testenv_active():
-    ...     assert get_valid_executable_path_or_empty_path(__main__.__file__) == empty_path
+    >>> if lib_detect_testenv.is_doctest_active(): assert get_valid_executable_path_or_empty_path(__main__.__file__) == empty_path
     >>> assert get_valid_executable_path_or_empty_path(__file__) == pathlib.Path(__file__).resolve()
     """
 
-    if lib_detect_testenv.is_doctest_in_arg_string(arg_string):
+    # if is_doctest_in_arg_string(arg_string):
+    if lib_detect_testenv.is_doctest_active(arg_string):
         return empty_path
 
     arg_string = remove_doctest_and_docrunner_parameters(arg_string)
@@ -202,4 +199,4 @@ def add_python_extension_if_not_there(arg_string: str) -> str:
 
 
 if __name__ == "__main__":
-    print("this is a library only, the executable is named lib_parameter_cli.py")
+    print("this is a library only, the executable is named lib_programname_cli.py")
