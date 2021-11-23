@@ -6,6 +6,11 @@ Changelog
 - new PATCH version for backwards compatible bug fixes
 
 
+v2.0.1
+--------
+2021-11-22: Patch Release
+    - fix tests
+
 v2.0.0
 --------
 2021-11-22: Major Release

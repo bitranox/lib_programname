@@ -2,7 +2,7 @@ lib_programname
 ===============
 
 
-Version v2.0.0 as of 2021-11-22 see `Changelog`_
+Version v2.0.1 as of 2021-11-24 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi| |black|
 
@@ -228,6 +228,11 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
+
+v2.0.1
+--------
+2021-11-22: Patch Release
+    - fix tests
 
 v2.0.0
 --------
