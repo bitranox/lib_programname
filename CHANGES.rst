@@ -5,6 +5,9 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
+v2.0.2
+--------
+2022-03-25: fix github actions windows test
 
 v2.0.1
 --------

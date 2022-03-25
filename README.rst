@@ -2,9 +2,9 @@ lib_programname
 ===============
 
 
-Version v2.0.1 as of 2021-11-24 see `Changelog`_
+Version v2.0.2 as of 2022-03-25 see `Changelog`_
 
-|build_badge| |license| |jupyter| |pypi| |black|
+|build_badge| |license| |jupyter| |pypi| |pypi-downloads| |black|
 
 |codecov| |better_code| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
 
@@ -47,6 +47,10 @@ Version v2.0.1 as of 2021-11-24 see `Changelog`_
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
+
+.. |pypi-downloads| image:: https://img.shields.io/pypi/dm/lib-programname
+   :target: https://pypi.org/project/lib-programname/
+   :alt: PyPI - Downloads
 
 Finding the name of the program from which a Python module is running can be trickier than it would seem at first, so lets make it damned easy.
 This works under pycharm, pytest, pytest-docrunner, uwsgi, dreampie etc. correctly.
@@ -228,6 +232,9 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
+v2.0.2
+--------
+2022-03-25: fix github actions windows test
 
 v2.0.1
 --------
