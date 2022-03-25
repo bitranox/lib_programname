@@ -45,7 +45,7 @@ jobs:
 
         # MYPY tests
         MYPY_DO_TESTS: "True"
-        MYPY_OPTIONS: "--follow-imports=normal --ignore-missing-imports --implicit-reexport --no-warn-unused-ignores --strict"
+        MYPY_OPTIONS: "--follow-imports=normal --ignore-missing-imports --implicit-reexport --install-types --no-warn-unused-ignores --non-interactive --strict"
         MYPYPATH: "./lib_programname/3rd_party_stubs"
 
         # coverage
@@ -252,4 +252,3 @@ jobs:
       shell: bash
       run: |
         lib_cicd_github deploy
-        ls -l ./dist
