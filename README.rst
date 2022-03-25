@@ -2,7 +2,7 @@ lib_programname
 ===============
 
 
-Version v2.0.2 as of 2022-03-25 see `Changelog`_
+Version v2.0.3 as of 2022-03-25 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi| |pypi-downloads| |black|
 
@@ -232,7 +232,7 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
-v2.0.2
+v2.0.3
 --------
 2022-03-25: fix github actions windows test
 
