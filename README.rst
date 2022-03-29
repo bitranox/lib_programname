@@ -2,7 +2,7 @@ lib_programname
 ===============
 
 
-Version v2.0.3 as of 2022-03-25 see `Changelog`_
+Version v2.0.4 as of 2022-03-29 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi| |pypi-downloads| |black|
 
@@ -231,6 +231,10 @@ Changelog
 - new MAJOR version for incompatible API changes,
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
+
+v2.0.4
+--------
+2022-03-29: remedy mypy Untyped decorator makes function "cli_info" untyped
 
 v2.0.3
 --------
