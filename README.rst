@@ -2,7 +2,7 @@ lib_programname
 ===============
 
 
-Version v2.0.4.2 as of 2022-06-02 see `Changelog`_
+Version v2.0.5 as of 2022-06-02 see `Changelog`_
 
 |build_badge| |license| |jupyter| |pypi| |pypi-downloads| |black|
 
@@ -231,6 +231,10 @@ Changelog
 - new MAJOR version for incompatible API changes,
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
+
+v2.0.5
+--------
+2022-06-02: correct mypy type error
 
 v2.0.4.2
 --------

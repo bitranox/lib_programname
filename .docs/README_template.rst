@@ -2,7 +2,7 @@ lib_programname
 ===============
 
 
-Version v2.0.4.2 as of 2022-06-02 see `Changelog`_
+Version v2.0.5 as of 2022-06-02 see `Changelog`_
 
 
 .. include:: ./badges.rst
