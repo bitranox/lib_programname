@@ -27,17 +27,17 @@ def test_cli_commands() -> None:
     assert call_cli_command(cli_command, "--traceback info")
 
 
-def execute_script_with_shebang(script_name: str) -> str:
+def execute_script(script_name: str) -> str:
     """
     >>> # shebang without extension
-    >>> execute_script_with_shebang("test_shebang")
-    '/.../lib_programname/tests/test_shebang'
+    >>> execute_script("script_without_extension")
+    '/.../lib_programname/tests/script_without_extension'
 
-    >>> execute_script_with_shebang("test_shebang.py")
-    '/.../lib_programname/tests/test_shebang.py'
+    >>> execute_script("script_with_extension.py")
+    '/.../lib_programname/tests/script_with_extension.py'
 
     """
-    # cli_command = " ".join([sys.executable, str(pathlib.Path(__file__).resolve().parent / "test_shebang")]).strip()
+    # cli_command = " ".join([sys.executable, get_str_path_to_script(script_name)]).strip()
     cli_command = get_str_path_to_script(script_name)
     result = subprocess.run(cli_command, shell=True, check=True, capture_output=True).stdout.decode('utf-8').strip()
     return result
