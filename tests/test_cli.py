@@ -67,6 +67,6 @@ def set_shebang(script_name: str) -> str:
 
     """
     my_txt = (get_test_directory() / script_name).read_text()
-    my_txt.replace('/usr/bin/python3', str(sys.executable))
+    my_txt = my_txt.replace('/usr/bin/python3', str(sys.executable))
     (get_test_directory() / script_name).write_text(my_txt)
     return my_txt
