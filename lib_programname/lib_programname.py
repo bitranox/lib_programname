@@ -88,11 +88,11 @@ def get_fullpath_from_main_file() -> pathlib.Path:
 
     """
     if not hasattr(sys.modules["__main__"], "__file__"):
-        print('from main')
         return empty_path
 
     arg_string = str(sys.modules["__main__"].__file__)
     valid_executable_path = get_valid_executable_path_or_empty_path(arg_string)
+    print('from main')
     return valid_executable_path
 
 
@@ -125,6 +125,7 @@ def get_fullpath_from_sys_argv() -> pathlib.Path:
         valid_executable_path = get_valid_executable_path_or_empty_path(arg_string)
         if valid_executable_path != empty_path:
             return valid_executable_path
+    print('from sys.argv')
     return empty_path
 
 
@@ -145,6 +146,7 @@ def get_fullpath_from_stack() -> pathlib.Path:
             levels_back += 1  # pragma: no cover
         except IndexError:  # pragma: no cover
             break  # pragma: no cover
+    print('from stack')
     return empty_path  # pragma: no cover
 
 
