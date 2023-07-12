@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!python
 import pathlib
 import lib_programname
 # this returns the fully resolved path to the launched python program
