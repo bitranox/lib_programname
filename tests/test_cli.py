@@ -27,13 +27,13 @@ def test_cli_commands() -> None:
     assert call_cli_command(cli_command, "--traceback info")
 
 
-def test_execute_script_with_shebang(script_name: str) -> str:
+def execute_script_with_shebang(script_name: str) -> str:
     """
     >>> # shebang without extension
-    >>> test_execute_script_with_shebang("test_shebang")
+    >>> execute_script_with_shebang("test_shebang")
     '/.../lib_programname/tests/test_shebang'
 
-    >>> test_execute_script_with_shebang("test_shebang.py")
+    >>> execute_script_with_shebang("test_shebang.py")
     '/.../lib_programname/tests/test_shebang.py'
 
     """
@@ -56,3 +56,5 @@ def get_str_path_to_script(script_name: str) -> str:
 
 def get_test_directory() -> pathlib.Path:
     return pathlib.Path(__file__).resolve().parent
+
+pathlib.Path.lin
