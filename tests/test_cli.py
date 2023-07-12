@@ -30,12 +30,12 @@ def test_cli_commands() -> None:
 def execute_script(script_name: str) -> str:
     """
     >>> # shebang without extension
-    >>> set_shebang("script_without_extension")
+    >>> ignore = set_shebang("script_without_extension")
     >>> execute_script("script_without_extension")
     '/.../lib_programname/tests/script_without_extension'
 
     >>> # shebang with extension
-    >>> set_shebang("script_with_extension.py")
+    >>> ignore = set_shebang("script_with_extension.py")
     >>> execute_script("script_with_extension.py")
     '/.../lib_programname/tests/script_with_extension.py'
 
@@ -46,27 +46,29 @@ def execute_script(script_name: str) -> str:
     return result
 
 
-def get_str_path_to_script(script_name: str) -> str:
+def get_str_path_to_script(script_file_name: str) -> str:
     """
+    returns the complete path to the testscript
+
     >>> get_str_path_to_script('test_script')
     '/.../lib_programname/tests/test_script'
 
     """
-    path_to_script = get_test_directory() / script_name
+    path_to_script = get_test_directory() / script_file_name
     str_path_to_script = str(path_to_script).strip()
     return str_path_to_script
 
 
+def set_shebang(script_file_name: str) -> str:
+    """
+    set shebang of the criptfile to the current python interpreter
+    >>> assert set_shebang("script_with_extension.py").startswith(f'#!{sys.executable}')
+    """
+    my_txt = (get_test_directory() / script_file_name).read_text()
+    my_txt = my_txt.replace('/usr/bin/python3', str(sys.executable))
+    (get_test_directory() / script_file_name).write_text(my_txt)
+    return my_txt
+
+
 def get_test_directory() -> pathlib.Path:
     return pathlib.Path(__file__).resolve().parent
-
-
-def set_shebang(script_name: str) -> str:
-    """
-    >>> set_shebang("script_with_extension.py")
-
-    """
-    my_txt = (get_test_directory() / script_name).read_text()
-    my_txt = my_txt.replace('/usr/bin/python3', str(sys.executable))
-    (get_test_directory() / script_name).write_text(my_txt)
-    return my_txt
