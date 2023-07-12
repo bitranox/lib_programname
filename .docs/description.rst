@@ -14,7 +14,9 @@ about that issue.
     >>> path_to_program = lib_programname.get_path_executed_script()    # type: pathlib.Path
 
 
-This also works now if the script does not have the extension ``.py``, and if the scripts is symlinked
+This also works now if the script does not have any extension and if the scripts is symlinked.
+
+In case the script is called via a symlink, the actual script location is returned, not the symlink !
 
 .. code-block::
 
@@ -51,3 +53,4 @@ This also works now if the script does not have the extension ``.py``, and if th
     $ ln -s testme link2test.py
     $ ./link2test.py
     /Users/tester/testme
+
