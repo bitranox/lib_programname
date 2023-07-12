@@ -30,7 +30,7 @@ dependencies = [
     "cli_exit_tools",
     "lib_detect_testenv",
 ]
-version = "v2.0.6"
+version = "v2.0.7"
 # seems to be not allowed anymore
 # zip-save = false
 
@@ -42,8 +42,7 @@ Changelog = "https://github.com/bitranox/lib_programname/blob/master/CHANGES.rst
 
 [project.optional-dependencies]
 test = [
-    "black ; platform_python_implementation != 'PyPy'",
-    "black==19.3b0 ; platform_python_implementation == 'PyPy'",
+    "black",
     "codecov",
     "coloredlogs",
     "coverage",
@@ -52,6 +51,7 @@ test = [
     "pytest",
     "pytest-cov",
     "pytest-runner",
+    "readme_renderer",
 ]
 
 [project.scripts]
