@@ -1,6 +1,6 @@
 |build_badge| |license| |jupyter| |pypi| |pypi-downloads| |black|
 
-|codecov| |better_code| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
+|codecov| |cc_maintain| |cc_issues| |cc_coverage| |snyk|
 
 
 
@@ -21,9 +21,6 @@
 .. |codecov| image:: https://img.shields.io/codecov/c/github/bitranox/lib_programname
    :target: https://codecov.io/gh/bitranox/lib_programname
 
-.. |better_code| image:: https://bettercodehub.com/edge/badge/bitranox/lib_programname?branch=master
-   :target: https://bettercodehub.com/results/bitranox/lib_programname
-
 .. |cc_maintain| image:: https://img.shields.io/codeclimate/maintainability-percentage/bitranox/lib_programname?label=CC%20maintainability
    :target: https://codeclimate.com/github/bitranox/lib_programname/maintainability
    :alt: Maintainability
@@ -36,7 +33,7 @@
    :target: https://codeclimate.com/github/bitranox/lib_programname/test_coverage
    :alt: Code Coverage
 
-.. |snyk| image:: https://img.shields.io/snyk/vulnerabilities/github/bitranox/lib_programname
+.. |snyk| image:: https://snyk.io/test/github/bitranox/lib_programname/badge.svg
    :target: https://snyk.io/test/github/bitranox/lib_programname
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
