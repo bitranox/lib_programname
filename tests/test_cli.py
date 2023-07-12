@@ -56,5 +56,3 @@ def get_str_path_to_script(script_name: str) -> str:
 
 def get_test_directory() -> pathlib.Path:
     return pathlib.Path(__file__).resolve().parent
-
-pathlib.Path.lin
