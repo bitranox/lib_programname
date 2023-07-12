@@ -88,6 +88,7 @@ def get_fullpath_from_main_file() -> pathlib.Path:
 
     """
     if not hasattr(sys.modules["__main__"], "__file__"):
+        print('from main')
         return empty_path
 
     arg_string = str(sys.modules["__main__"].__file__)
