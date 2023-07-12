@@ -9,7 +9,7 @@ v2.0.7
 ---------
 2023-07-12:
     - also works now with symlinks
-    - also works now with scripts which does not have \*.py extension
+    - also works now with scripts and symlinks which do not have a ``py`` extension
     - clean ./tests/test_cli.py
 
 v2.0.6
