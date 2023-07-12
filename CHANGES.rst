@@ -5,6 +5,12 @@ Changelog
 - new MINOR version for added functionality in a backwards compatible manner
 - new PATCH version for backwards compatible bug fixes
 
+v2.0.7
+---------
+2023-07-12:
+    - also work now with symlinks
+    - also work now with scripts which does not have *.py extension
+
 v2.0.6
 ---------
 2023-07-12:

@@ -92,7 +92,6 @@ def get_fullpath_from_main_file() -> pathlib.Path:
 
     arg_string = str(sys.modules["__main__"].__file__)
     valid_executable_path = get_valid_executable_path_or_empty_path(arg_string)
-    print('from main')
     return valid_executable_path
 
 
@@ -125,7 +124,6 @@ def get_fullpath_from_sys_argv() -> pathlib.Path:
         valid_executable_path = get_valid_executable_path_or_empty_path(arg_string)
         if valid_executable_path != empty_path:
             return valid_executable_path
-    print('from sys.argv')
     return empty_path
 
 
@@ -146,12 +144,20 @@ def get_fullpath_from_stack() -> pathlib.Path:
             levels_back += 1  # pragma: no cover
         except IndexError:  # pragma: no cover
             break  # pragma: no cover
-    print('from stack')
     return empty_path  # pragma: no cover
 
 
-def get_valid_executable_path_or_empty_path(arg_string: str) -> pathlib.Path:
+def get_valid_executable_path_or_empty_path(arg_string: str, only_files_with_extension_py: bool = False) -> pathlib.Path:
     """
+    :returns
+        a valid path to the executable script, or empty_path
+
+    :parameter arg_string
+        the sysargs as string
+
+    :parameter only_files_with_extension_py
+        only return files with extension ".py" - the old behaviour
+
     >>> ## normal execution
     >>> assert get_valid_executable_path_or_empty_path(__file__) == pathlib.Path(__file__).resolve()
     >>> # docrunner.py or doctest.py active
@@ -165,7 +171,10 @@ def get_valid_executable_path_or_empty_path(arg_string: str) -> pathlib.Path:
         return empty_path
 
     arg_string = remove_doctest_and_docrunner_parameters(arg_string)
-    # arg_string = add_python_extension_if_not_there(arg_string)
+
+    if only_files_with_extension_py:
+        arg_string = add_python_extension_if_not_there(arg_string)
+
     path = pathlib.Path(arg_string)
     if path.is_file():
         path = path.resolve()

@@ -1,4 +1,4 @@
-.. code-block:: py
+.. code-block:: python
 
     import lib_programname
     # this returns the fully resolved path to the launched python program
