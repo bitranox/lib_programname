@@ -30,7 +30,7 @@ def get_path_executed_script() -> pathlib.Path:
     >>> ### TEST get it via sys.argv
     >>> # Setup
     >>> # force __main__.__file__ invalid
-    >>> __main__.__file__ = str((pathlib.Path(__file__).parent / 'invalid_file.py'))  # .resolve() seems not to work on a non existing file in python 3.5
+    >>> __main__.__file__ = str((pathlib.Path(__file__).parent / 'invalid_file.py'))
 
     >>> # force sys.argv valid
     >>> save_sys_argv = list(sys.argv)
@@ -44,7 +44,7 @@ def get_path_executed_script() -> pathlib.Path:
     >>> ### TEST get it via stack
     >>> # Setup
     >>> # force sys.argv invalid
-    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py'))  # .resolve() seems not to work on a non existing file in python 3.5
+    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py'))
     >>> sys.argv = [invalid_path]
 
 
@@ -105,7 +105,7 @@ def get_fullpath_from_sys_argv() -> pathlib.Path:
 
     >>> # force test invalid sys.path
     >>> save_sys_argv = list(sys.argv)
-    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py'))  # .resolve() seems not to work on a non existing file in python 3.5
+    >>> invalid_path = str((pathlib.Path(__file__).parent / 'invalid_file.py'))
     >>> sys.argv = [invalid_path]
     >>> assert get_fullpath_from_sys_argv() == pathlib.Path()
     >>> sys.argv = list(save_sys_argv)
@@ -149,8 +149,12 @@ def get_fullpath_from_stack() -> pathlib.Path:
 
 def get_valid_executable_path_or_empty_path(arg_string: str) -> pathlib.Path:
     """
-    >>> if lib_detect_testenv.is_doctest_active(): assert get_valid_executable_path_or_empty_path(__main__.__file__) == empty_path
+    >>> ## normal execution
     >>> assert get_valid_executable_path_or_empty_path(__file__) == pathlib.Path(__file__).resolve()
+    >>> # docrunner.py or doctest.py active
+    >>> if lib_detect_testenv.is_doctest_active(): assert get_valid_executable_path_or_empty_path(__main__.__file__) == empty_path
+    >>> # doctest.py active
+    >>> assert get_valid_executable_path_or_empty_path("doctest.py") == empty_path
     """
 
     # if is_doctest_in_arg_string(arg_string):
@@ -158,10 +162,10 @@ def get_valid_executable_path_or_empty_path(arg_string: str) -> pathlib.Path:
         return empty_path
 
     arg_string = remove_doctest_and_docrunner_parameters(arg_string)
-    arg_string = add_python_extension_if_not_there(arg_string)
+    # arg_string = add_python_extension_if_not_there(arg_string)
     path = pathlib.Path(arg_string)
     if path.is_file():
-        path = path.resolve()  # .resolve does not work on a non existing file in python 3.5
+        path = path.resolve()
         return path
     else:
         return empty_path
