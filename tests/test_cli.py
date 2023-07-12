@@ -29,7 +29,6 @@ def test_cli_commands() -> None:
 
 def execute_script(script_name: str) -> str:
     """
-    >>> sys.executable
     >>> # shebang without extension
     >>> set_shebang("script_without_extension")
     >>> execute_script("script_without_extension")
@@ -62,7 +61,12 @@ def get_test_directory() -> pathlib.Path:
     return pathlib.Path(__file__).resolve().parent
 
 
-def set_shebang(script_name: str) -> None:
+def set_shebang(script_name: str) -> str:
+    """
+    >>> set_shebang("script_with_extension.py")
+
+    """
     my_txt = (get_test_directory() / script_name).read_text()
     my_txt.replace('/usr/bin/python3', str(sys.executable))
     (get_test_directory() / script_name).write_text(my_txt)
+    return my_txt
