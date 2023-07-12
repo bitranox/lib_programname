@@ -29,6 +29,7 @@ def test_cli_commands() -> None:
 
 def execute_script(script_name: str) -> str:
     """
+    >>> sys.executable
     >>> # shebang without extension
     >>> set_shebang("script_without_extension")
     >>> execute_script("script_without_extension")
