@@ -45,7 +45,7 @@ v2.0.5
 
 v2.0.4.2
 --------
-2022-06-01: update to github actions checkout@v3 and setup-python@v3
+2022-06-01: update to github actions checkout@v3 and setup-python@v6
 
 v2.0.4.1
 --------
